@@ -35,7 +35,6 @@ const projects: Project[] = [
   {
     title: "Github User Activity",
     link: "  https://github.com/offensive-vk/auto-user-activity",
-    preview: "",
     status: "Completed",
     role: "Author"
   },
@@ -55,7 +54,7 @@ const projects: Project[] = [
         projects.map((project) => (
           <div class="group">
             <a
-              href={project.preview}
+              href={project.preview || ""}
               target="_blank"
               rel="noopener noreferrer"
               class="block"

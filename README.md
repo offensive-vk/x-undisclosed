@@ -1,4 +1,4 @@
-# Dark Portfolio
+# Dark Portfolio - Undisclosed
 
 Welcome to the **Dark Portfolio**, a sleek and modern personal portfolio website built with **Astro**, **React**, and **Tailwind CSS**. This project showcases my work and skills in a stylish, dark-themed interface.
 
@@ -24,8 +24,8 @@ Make sure you have **Node.js (v24 or later)** and **pnpm** installed on your mac
 **Clone the repository:**
 
 ```bash
-git clone https://github.com/offensive-vk/dark-portfolio.git
-cd dark-portfolio
+git clone https://github.com/offensive-vk/x-undisclosed.git
+cd x-undisclosed
 ```
 
 **Install dependencies:**

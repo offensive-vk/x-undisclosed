@@ -17,18 +17,18 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        node-version: [18.x, 19.x, 20.x, 21.x, 22.x, 23.x, 24.x]
+        node-version: [20.x, 21.x, 22.x, 23.x, 24.x]
     name: ${{ matrix.os }} - v${{ matrix.node-version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
   
-      - name: Setup pnpm@v10
-        run: npm i -g pnpm@10.10.0; pnpm -v
+      - name: Setup pnpm@v11
+        run: npm i -g pnpm@11.11.0; pnpm -v
       - run: pnpm i
       - run: pnpm run build
   
