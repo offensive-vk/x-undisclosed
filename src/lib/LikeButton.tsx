@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { doc, onSnapshot, updateDoc, increment } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../firebase.ts";
 
 const LikeButton = () => {
   const [likes, setLikes] = useState(0);
