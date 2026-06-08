@@ -7,7 +7,7 @@ const SkillsList = () => {
   const [errorIcons, setErrorIcons] = useState<string | null>(null);
 
   const remoteIconUrls: { [key: string]: string } = {
-    "Web Development": "https://cdn.jsdelivr.net/gh/offensive-vk/Icons@master/html5/html5-original.svg",
+    "System Administration": "https://cdn.jsdelivr.net/gh/offensive-vk/Icons@master/linux/linux-original.svg",
     "Github Actions": "https://cdn.jsdelivr.net/gh/offensive-vk/Icons@master/githubactions/githubactions-original.svg",
     "Containerization": "https://cdn.jsdelivr.net/gh/offensive-vk/Icons@master/docker/docker-original.svg",
   };
@@ -41,12 +41,12 @@ const SkillsList = () => {
   }, []);
 
   const skills = {
-    "Web Development": [
-      "Single Page Applications (SPAs)",
-      "Goofy Personal Websites",
+    "System Administration": [
+      "Logging and Monitoring Systems",
+      "Managing User Accounts",
     ],
     "Github Actions": [
-      "Writing Complex Workflows",
+      "Writing CI/CD Workflows",
       "Automate Almost Anything"
     ],
     "Containerization": [

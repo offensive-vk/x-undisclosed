@@ -35,13 +35,9 @@ const { title } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       media="print"
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      />
-    </noscript>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Carattere&display=swap" rel="stylesheet">
     <title>{title}</title>
   </head>
   <body class="bg-[--background] md:px-48 lg:px-20 px-9">
@@ -52,7 +48,7 @@ const { title } = Astro.props;
 <style is:global>
   :root {
     --background: #101010;
-    --sec: #a476ff;
+    --sec: #2a33b1;
     --white: #dfdfdf;
     --white-icon: #f3f3f398;
     --white-icon-tr: #f3f3f310;
@@ -60,7 +56,8 @@ const { title } = Astro.props;
 
   * {
     font-family:
-      "montserrat",
+      "Merriweather",
+      "Kaisei Decol",
       -apple-system,
       system-ui,
       sans-serif;
