@@ -1,0 +1,8 @@
+allowBuilds:
+  '@firebase/util': true
+  esbuild: true
+  protobufjs: true
+  sharp: true
+overrides:
+  serialize-javascript: ^7.0.5
+  yaml: ^2.8.3

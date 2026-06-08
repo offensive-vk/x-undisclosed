@@ -71,13 +71,13 @@ This project includes a `Dockerfile` for easy containerization.
 ### Build the Docker Image
 
 ```bash
-docker build -t dark-portfolio .
+docker build -t ns17-portfolio .
 ```
 
 ### Run the Docker Container
 
 ```bash
-docker run -p 7777:7777 dark-portfolio
+docker run -p 7777:7777 ns17-portfolio
 ```
 
 Your portfolio will then be accessible via `http://localhost:7777` in your browser.
