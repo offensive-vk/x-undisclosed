@@ -17,7 +17,7 @@ Follow these steps to set up and run the project locally.
 Make sure you have **Node.js (v24 or later)** and **pnpm** installed on your machine.
 
 - **Node.js:** [Download & Install Node.js](https://nodejs.org/en/download/)
-- **pnpm:** `npm install -g pnpm@10.10.0`
+- **pnpm:** `npm install -g pnpm@11.5.0`
 
 ### Installation
 

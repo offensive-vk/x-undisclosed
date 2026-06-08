@@ -1,5 +1,5 @@
-FROM node:24-alpine
-RUN npm install -g pnpm@10.25.0
+FROM node:24-slim
+RUN npm install -g pnpm@11.5.0
 WORKDIR /app
 COPY package.json pnpm-lock.yaml* ./
 RUN pnpm i

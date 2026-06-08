@@ -1,9 +1,25 @@
 {
   "name": "x-undisclosed",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.1.1",
+  "homepage": "https://ns17.lat",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/offensive-vk/ns17.lat.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ns17.lat",
+    "ns17",
+    "portfolio",
+    "website",
+    "personal website",
+    "personal portfolio",
+    "personal website"
+  ],
   "author": {
-    "name": "Vedansh"
+    "name": "Vedansh",
+    "url": "https://github.com/offensive-vk"
   },
   "scripts": {
     "dev": "astro dev --verbose",

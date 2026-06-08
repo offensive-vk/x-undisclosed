@@ -6,6 +6,7 @@ dist/
 
 # dependencies
 node_modules/
+settings.json
 
 # logs
 npm-debug.log*
@@ -23,3 +24,6 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .wrangler/
+
+# editor folder
+.vscode/
