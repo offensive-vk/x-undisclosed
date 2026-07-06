@@ -31,24 +31,24 @@ const navItems: NavItem[] = [
 
 <div class="flex justify-center w-full">
   <nav
-    class="fixed flex left-0 right-0 z-[100] bg-[#1414149c] border border-1 border-[var(--white-icon-tr)] backdrop-blur-xl transition-all md:top-0 md:bottom-auto bottom-0 md:w-[33rem] rounded-t-2xl md:rounded-full md:mt-6 md:justify-self-center"
+    class="fixed flex left-0 right-0 mx-auto z-[100] bg-[#141414c0] border border-1 border-[var(--white-icon-tr)] backdrop-blur-2xl transition-all lg:top-0 lg:bottom-auto bottom-0 lg:w-[33rem] rounded-t-3xl lg:rounded-full lg:mt-6 pb-[env(safe-area-inset-bottom)] lg:pb-0 shadow-[0_-4px_24px_-8px_rgba(0,0,0,0.5)] lg:shadow-none"
   >
-    <div class="container mx-auto flex justify-center items-center p-3">
+    <div class="container mx-auto flex justify-center items-center p-4 lg:p-3">
       <ul
-        class="flex w-full justify-between md:space-x-6 md:justify-center md:gap-12 gap-6"
+        class="flex w-full justify-around lg:space-x-6 lg:justify-center lg:gap-12 gap-2 px-2"
       >
         {
           navItems.map((item) => (
-            <li class="flex-1 md:flex-none">
+            <li class="flex-1 lg:flex-none">
               <a
                 href={item.href}
-                class="flex flex-col items-center gap-1 text-[var(--white-icon)] transition-colors text-xs md:text-base"
+                class="flex flex-col items-center gap-1.5 text-[var(--white-icon)] transition-colors text-[10px] sm:text-xs lg:text-base hover:text-white"
               >
-                <span class="md:hidden flex items-center justify-center w-6 h-6">
+                <span class="lg:hidden flex items-center justify-center w-6 h-6 opacity-80 mb-0.5">
                   <fragment set:html={item.icon} />
                 </span>
-                <span class="hidden md:inline-block">{item.label}</span>
-                <span class="md:hidden">{item.label}</span>
+                <span class="hidden lg:inline-block">{item.label}</span>
+                <span class="lg:hidden font-medium">{item.label}</span>
               </a>
             </li>
           ))
@@ -100,9 +100,9 @@ const navItems: NavItem[] = [
 </script>
 
 <style>
-  @media (max-width: 767px) {
+  @media (max-width: 1023px) {
     body {
-      padding-bottom: 70px;
+      padding-bottom: calc(90px + env(safe-area-inset-bottom));
     }
   }
 

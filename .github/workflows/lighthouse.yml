@@ -1,0 +1,41 @@
+name: CI / Lighthouse
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+
+      - name: Setup pnpm and build
+        run: |
+          npm i -g pnpm@11.5.0
+          pnpm i
+          pnpm run build
+
+      - name: Audit URLs using Lighthouse
+        id: lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          temporaryPublicStorage: true
+
+      - name: Add Lighthouse Report to Job Summary
+        if: ${{ always() }}
+        env:
+          MANIFEST: ${{ steps.lighthouse.outputs.manifest }}
+        run: |
+          echo "## ⚡ Lighthouse CI Report" >> $GITHUB_STEP_SUMMARY
+          echo "| Category | Score |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+          echo "$MANIFEST" | jq -r '.[0].summary | "| Performance | \(.performance * 100) |\n| Accessibility | \(.accessibility * 100) |\n| Best Practices | \(.["best-practices"] * 100) |\n| SEO | \(.seo * 100) |"' >> $GITHUB_STEP_SUMMARY

@@ -2,6 +2,7 @@
 import LetterGlitch from "../lib/LetterGlitch.tsx";
 import LogoWall from "../components/LogoWall.astro";
 import SkillsList from "../lib/SkillsList.tsx";
+import HoloBadge from "../lib/HoloBadge.tsx";
 ---
 
 <section class="text-[var(--white)] mt-12 md:mt-0" id="home">
@@ -14,11 +15,11 @@ import SkillsList from "../lib/SkillsList.tsx";
         class="flex flex-col lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-8 md:gap-4"
       >
         <h1
-          class="text-[var(--white)] text-5xl md:text-6xl font-medium text-pretty leading-none"
+          class="text-[var(--white)] text-4xl sm:text-5xl lg:text-6xl font-medium text-pretty leading-none"
         >
           Information <br /> Security <br /> Engineer
         </h1>
-        <p class="text-md md:text-2xl text-[var(--white-icon)]">
+        <p class="text-base sm:text-lg md:text-2xl text-[var(--white-icon)]">
           Transforming IT landscapes with advanced cloud strategies, streamlined Linux operations, and modern <span class="text-[var(--sec)] shiny-sec">architecture</span>.
         </p>
       </div>
@@ -83,19 +84,12 @@ import SkillsList from "../lib/SkillsList.tsx";
 
     <LogoWall />
 
-    <div class="flex flex-col lg:flex-row items-center gap-8">
-      <SkillsList client:load />
-      <div
-        class="flex justify-center md:w-full md:h-[292px] size-[290px] pt-3 md:pt-9 md:ml-16 overflow-hidden"
-      >
-        <LetterGlitch
-          client:load
-          glitchColors={["#225522", "#008F11", "#0A1A0A"]}
-          glitchSpeed={30}
-          centerVignette={false}
-          outerVignette={true}
-          smooth={true}
-        />
+    <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 justify-between mt-12">
+      <div class="flex-1 w-full max-w-lg flex justify-center lg:justify-start">
+        <SkillsList client:load />
+      </div>
+      <div class="flex-1 w-full flex justify-center pt-3 md:pt-0 perspective-1000">
+        <HoloBadge client:visible />
       </div>
     </div>
   </div>

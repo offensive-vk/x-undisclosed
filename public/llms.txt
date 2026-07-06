@@ -1,5 +1,7 @@
 # WEBSITE.NS17.LAT
 
+- [Personal Website](https://website.ns17.lat/)
+
 > Personal portfolio website of Vedansh (@offensive-vk). Built with Astro, React, and Tailwind CSS. Deployed on Cloudflare Pages.
 
 ## Sections

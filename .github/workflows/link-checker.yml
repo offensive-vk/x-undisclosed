@@ -1,0 +1,32 @@
+name: CI / Link Checker
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+  schedule:
+    - cron: '0 0 * * 0' # Weekly on Sunday
+
+jobs:
+  link-checker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Link Checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --base . --no-progress './**/*.md' './**/*.astro'
+          fail: false # Don't fail the build immediately, just report
+
+      - name: Add Report to Job Summary
+        if: always()
+        run: |
+          echo "## 🔗 Broken Link Checker Report" >> $GITHUB_STEP_SUMMARY
+          if [ -f lychee/out.md ]; then
+            cat lychee/out.md >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ All links are valid!" >> $GITHUB_STEP_SUMMARY
+          fi
