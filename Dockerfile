@@ -6,4 +6,4 @@ RUN pnpm install
 COPY . .
 RUN pnpm run build
 EXPOSE 7777
-CMD ["pnpm", "run", "dev"]
+CMD ["pnpm", "run", "preview"]

@@ -1,0 +1,7 @@
+# Security Policy for website.ns17.lat
+# https://securitytxt.org/ | RFC 9116
+
+Contact: mailto:superuser.ntsystems@outlook.com
+Preferred-Languages: en
+Canonical: https://website.ns17.lat/.well-known/security.txt
+Expires: 2027-12-31T23:59:59.000Z

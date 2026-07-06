@@ -1,0 +1,19 @@
+# WEBSITE.NS17.LAT
+
+> Personal portfolio website of Vedansh (@offensive-vk). Built with Astro, React, and Tailwind CSS. Deployed on Cloudflare Pages.
+
+## Sections
+
+- Home: Hero section with animated title, social links, scrolling tech logo wall, and interactive skills accordion.
+- Projects: Showcase of featured projects with GitHub source and live preview links.
+- Certifications: Cisco certifications with Credly verification badges.
+- Contact: Contact form for professional inquiries.
+- Footer: Social links, tech stack attribution, and copyright.
+
+## Tech Stack
+
+- Framework: Astro v6 (Static Site Generator)
+- UI Islands: React 19 (Hydrated client-side components)
+- Styling: Tailwind CSS v3
+- Hosting: Cloudflare Pages
+- Domain: website.ns17.lat

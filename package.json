@@ -2,10 +2,10 @@
   "name": "x-undisclosed",
   "type": "module",
   "version": "1.1.1",
-  "homepage": "https://ns17.lat",
+  "homepage": "https://website.ns17.lat",
   "repository": {
     "type": "git",
-    "url": "https://github.com/offensive-vk/ns17.lat.git"
+    "url": "https://github.com/offensive-vk/x-undisclosed.git"
   },
   "license": "MIT",
   "keywords": [
@@ -14,8 +14,7 @@
     "portfolio",
     "website",
     "personal website",
-    "personal portfolio",
-    "personal website"
+    "personal portfolio"
   ],
   "author": {
     "name": "Vedansh",
@@ -32,8 +31,6 @@
     "@astrojs/check": "^0.9.9",
     "@astrojs/react": "^5.0.7",
     "@astrojs/tailwind": "^6.0.2",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.3",
     "@vite-pwa/astro": "^1.1.0",
     "astro": "^6.4.4",
     "firebase": "^11.3.1",
@@ -45,7 +42,8 @@
   },
   "devDependencies": {
     "@types/node": "^22.13.5",
-    "@types/react": "^20.10.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.3",
     "prettier": "^3.5.2",
     "prettier-plugin-astro": "^0.14.1"
   }

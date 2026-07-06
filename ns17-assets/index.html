@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="author" content="OG - Vedansh" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hi // NS17.LAT // CLASSIFIED">
+    <meta name="theme-color" content="#0d0d0d">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hi // NS17.LAT // CLASSIFIED">
+    <meta name="twitter:description" content="Hi // NS17.LAT // CLASSIFIED">
+    <meta name="twitter:image" content="https://ns17.lat/favicon.webp">
+    <meta name="og:type" content="website">
+    <meta name="og:url" content="https://ns17.lat">
+    <meta name="og:title" content="Hi // NS17.LAT // CLASSIFIED">
+    <meta name="og:description" content="Hi // NS17.LAT // CLASSIFIED">
+    <meta name="og:image" content="https://ns17.lat/favicon.webp">
+    <title>Hi // NS17.LAT // CLASSIFIED</title>
+    <link rel="icon" type="image/webp" href="favicon.webp" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'Caratt';
+            src: url('Carattere.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @keyframes scrollBackground {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 0 500px;
+            }
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 10px);
+            }
+
+            15% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+
+            85% {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -10px);
+            }
+        }
+
+        @keyframes glitchReveal {
+            0% {
+                opacity: 0;
+                filter: blur(4px);
+                letter-spacing: 4px;
+                color: #fc00ff;
+            }
+
+            50% {
+                opacity: 0.5;
+                filter: blur(2px);
+                color: #00dbde;
+            }
+
+            100% {
+                opacity: 1;
+                filter: blur(0);
+                letter-spacing: 0px;
+                color: #d8d8d8;
+            }
+        }
+
+        body {
+            background-color: #0d0d0d;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 0);
+            background-size: 24px 24px;
+            animation: scrollBackground 25s linear infinite;
+
+            color: #d8d8d8;
+            font-family: 'Share+Tech+Mono', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            user-select: none;
+            overflow: hidden;
+        }
+
+        .welcome-container {
+            position: relative;
+            text-align: center;
+            background: #0d0d0d;
+            border: 2px solid #222;
+            padding: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: border-color 0.4s ease;
+        }
+
+        .welcome-container:hover {
+            border-color: #444;
+        }
+
+        .welcome-container::after {
+            content: "";
+            z-index: -1;
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%);
+            border-radius: 12px;
+            filter: blur(25px);
+            opacity: 0.4;
+            transition: opacity 0.4s ease, filter 0.4s ease;
+        }
+
+        .welcome-container:hover::after {
+            opacity: 0.85;
+            filter: blur(30px);
+        }
+
+        h1 {
+            font-family: 'Major+Mono+Display', monospace;
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #eee;
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 1em;
+            color: #888;
+            margin-bottom: 25px;
+        }
+
+        .ip-display {
+            font-size: 0.9em;
+            color: #555;
+            border-top: 1px solid #222;
+            padding-top: 15px;
+        }
+
+        .ip-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .ip-address {
+            color: #888;
+            transition: color 0.3s ease;
+            min-height: 20px;
+        }
+
+        .location-display {
+            font-size: 0.85em;
+            color: #444;
+            margin-top: 4px;
+            min-height: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        .ip-loaded {
+            animation: glitchReveal 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .copy-btn {
+            background: #161616;
+            border: 1px solid #333;
+            color: #888;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: 'Share+Tech+Mono', monospace;
+            font-size: 0.8em;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.9);
+            margin-top: 6px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .copy-btn.reveal {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .copy-btn:hover {
+            color: #00dbde;
+            border-color: #00dbde;
+            background: #111;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0d0d0d;
+            color: #eee;
+            padding: 10px 24px;
+            font-family: 'Share+Tech+Mono', monospace;
+            border-radius: 6px;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            z-index: 100;
+            pointer-events: none;
+            display: none;
+            border: 1px solid #fc00ff;
+            box-shadow: 0 0 15px rgba(252, 0, 255, 0.2);
+        }
+
+        .toast.show {
+            display: block;
+            animation: fadeInOut 2s ease forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="welcome-container">
+        <h1>NS17.LAT</h1>
+        <div class="subtitle">Oh, hello!</div>
+
+        <div class="ip-display">
+            Who are you?<br>
+            <div class="ip-wrapper">
+                <span id="user-ipv4" class="ip-address">...</span>
+                <span id="user-ipv6" class="ip-address"></span>
+                <div class="location-display" id="user-location">...</div>
+                <button class="copy-btn" id="copy-ip-btn" title="Copy IP Addresses">COPY</button>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast" id="toast-notification">COPIED</div>
+
+    <script>
+        const ipv4Span = document.getElementById('user-ipv4');
+        const ipv6Span = document.getElementById('user-ipv6');
+        const locationDiv = document.getElementById('user-location');
+        const copyBtn = document.getElementById('copy-ip-btn');
+        const toast = document.getElementById('toast-notification');
+
+        let cipherInterval = setInterval(() => {
+            const chars = "0123456789ABCDEF.:";
+            let mockIp = "";
+            for (let i = 0; i < 15; i++) {
+                mockIp += chars[Math.floor(Math.random() * chars.length)];
+            }
+            if (ipv4Span.textContent === '...') {
+                ipv4Span.style.color = '#333';
+                ipv4Span.textContent = mockIp;
+            }
+        }, 80);
+
+        Promise.all([
+            fetch('https://api.ipify.org?format=json').then(res => res.json()).catch(() => null),
+            fetch('https://api64.ipify.org?format=json').then(res => res.json()).catch(() => null),
+        ])
+            .then(([ipv4Data, ipv6Data, geoData]) => {
+                clearInterval(cipherInterval);
+
+                let hasValidIp = false;
+
+                if (ipv4Data && ipv4Data.ip) {
+                    ipv4Span.textContent = `IPv4: ${ipv4Data.ip}`;
+                    ipv4Span.classList.add('ip-loaded');
+                    hasValidIp = true;
+                } else {
+                    ipv4Span.textContent = "IPv4: Unavailable";
+                    ipv4Span.classList.add('ip-loaded');
+                }
+
+                if (ipv6Data && ipv6Data.ip && ipv6Data.ip !== ipv4Data?.ip && ipv6Data.ip.includes(':')) {
+                    ipv6Span.textContent = `IPv6: ${ipv6Data.ip}`;
+                    ipv6Span.classList.add('ip-loaded');
+                    hasValidIp = true;
+                } else {
+                    ipv6Span.style.display = 'none';
+                }
+
+                if (geoData && geoData.city && geoData.country_name) {
+                    locationDiv.textContent = `${geoData.city.toUpperCase()}, ${geoData.country_name.toUpperCase()}`;
+                    locationDiv.classList.add('ip-loaded');
+                } else {
+                    locationDiv.textContent = "LOCATION UNKNOWN";
+                }
+
+                if (hasValidIp) {
+                    setTimeout(() => {
+                        copyBtn.classList.add('reveal');
+                    }, 400);
+                }
+            })
+            .catch(error => {
+                clearInterval(cipherInterval);
+                console.error("Error retrieving network profiles:", error);
+                ipv4Span.textContent = "Unavailable";
+                ipv4Span.classList.add('ip-loaded');
+                ipv6Span.style.display = 'none';
+                locationDiv.textContent = "OFFLINE";
+            });
+
+        copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            const lines = [];
+            if (ipv4Span.textContent && !ipv4Span.textContent.includes('Unavailable')) {
+                lines.push(ipv4Span.textContent);
+            }
+            if (ipv6Span.textContent && ipv6Span.style.display !== 'none') {
+                lines.push(ipv6Span.textContent);
+            }
+
+            if (lines.length > 0) {
+                navigator.clipboard.writeText(lines.join('\n')).then(() => {
+                    toast.classList.add('show');
+                    setTimeout(() => {
+                        toast.classList.remove('show');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Could not copy text: ', err);
+                });
+            }
+        });
+
+        console.log(`[SYSTEM]: Yup, I know you are here buddy. - VN5B4309VAX8`);
+        console.log(
+            "%c ",
+            `
+            background-image: url("https://ns17.lat/spotted.jpg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            padding: 240px 200px;
+            line-height: 120px;
+            `
+        );
+    </script>
+
+</body>
+
+</html>

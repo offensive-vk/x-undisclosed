@@ -116,10 +116,10 @@ const SkillsList = () => {
               >
                 <ul className="space-y-2 text-[var(--white-icon)] text-sm">
                   {items.map((item, index) => (
-                    <div key={index} className="flex items-center">
+                    <li key={index} className="flex items-center">
                       <span className="pl-1">•</span>
-                      <li className="pl-3">{item}</li>
-                    </div>
+                      <span className="pl-3">{item}</span>
+                    </li>
                   ))}
                 </ul>
               </div>

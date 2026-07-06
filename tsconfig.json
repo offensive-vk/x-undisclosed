@@ -16,6 +16,9 @@
       ],
       "@components/*": [
         "src/components/*"
+      ],
+      "@lib/*": [
+        "src/lib/*"
       ]
     },
     "jsx": "react-jsx",
@@ -23,6 +26,6 @@
   },
   "include": [
     "src/**/*",
-    "astro.config.ts"
+    "astro.config.mjs"
   ]
 }
