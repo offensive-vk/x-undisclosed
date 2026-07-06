@@ -25,22 +25,11 @@ const { title } = Astro.props;
     <link rel="shortcut icon" type="image/x-icon" href="/logo-black.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      media="print"
-    />
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Carattere&display=swap" rel="stylesheet">
     <title>{title}</title>
   </head>
   <body class="bg-[--background] px-5 sm:px-8 md:px-12 lg:px-20">
+    <div class="top-gradient-line"></div>
     <slot />
   </body>
 </html>
@@ -60,7 +49,6 @@ const { title } = Astro.props;
   * {
     font-family:
       "Merriweather",
-      "Kaisei Decol",
       -apple-system,
       system-ui,
       sans-serif;
@@ -98,5 +86,40 @@ const { title } = Astro.props;
   * {
     scrollbar-width: thin;
     scrollbar-color: var(--line) var(--container);
+  }
+
+  /* Top Gradient Scanline */
+  .top-gradient-line {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--sec), var(--pink), #ffffff, var(--pink), var(--sec), transparent);
+    z-index: 9999;
+    transform-origin: center;
+    animation: gradient-scan 60s ease-out infinite;
+    opacity: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 1px var(--pink), 0 0 20px 2px var(--sec);
+  }
+
+  @keyframes gradient-scan {
+    0% {
+      transform: scaleX(0);
+      opacity: 1;
+    }
+    4.5% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+    5% {
+      transform: scaleX(1);
+      opacity: 0;
+    }
+    100% {
+      transform: scaleX(0);
+      opacity: 0;
+    }
   }
 </style>

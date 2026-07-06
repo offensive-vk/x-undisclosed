@@ -54,10 +54,11 @@ const projects: Project[] = [
         projects.map((project) => (
           <div class="group">
             <a
-              href={project.preview || ""}
+              href={project.preview || project.link || "#"}
               target="_blank"
               rel="noopener noreferrer"
               class="block"
+              aria-label={`View ${project.title}`}
             >
               {/* <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 mb-4"> */}
                 {/* <Image

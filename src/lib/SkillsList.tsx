@@ -59,19 +59,13 @@ const SkillsList = () => {
     setOpenItem(openItem === item ? null : item);
   };
 
-  if (loadingIcons) {
-    return <div className="text-[var(--white)] text-center pt-3 md:pt-9">Loading icons...</div>;
-  }
 
-  if (errorIcons) {
-    return <div className="text-red-500 text-center pt-3 md:pt-9">{errorIcons}</div>;
-  }
 
   return (
     <div className="text-left pt-3 md:pt-9">
-      <h3 className="text-[var(--white)] text-3xl md:text-4xl font-semibold md:mb-6">
+      <h2 className="text-[var(--white)] text-3xl md:text-4xl font-semibold md:mb-6">
         What I do?
-      </h3>
+      </h2>
       <ul className="space-y-4 mt-4 text-lg">
         {Object.entries(skills).map(([category, items]) => (
           <li key={category} className="w-full">
@@ -85,7 +79,7 @@ const SkillsList = () => {
                   dangerouslySetInnerHTML={{
                     __html: categoryIcons[category]
                       ? categoryIcons[category].replace(/<svg/, `<svg class="w-6 h-6 text-[var(--sec)] opacity-70"`)
-                      : '' // Fallback if icon not found
+                      : '<div class="w-6 h-6 rounded-full bg-[#111] animate-pulse border border-[#333]"></div>'
                   }}
                 />
                 <div className="flex items-center gap-2 flex-grow justify-between">

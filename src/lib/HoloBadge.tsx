@@ -7,18 +7,18 @@ export default function HoloBadge() {
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!badgeRef.current) return;
-    
+
     const rect = badgeRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     // Calculate rotation (-15 to 15 degrees)
     const rotateY = ((x / rect.width) - 0.5) * 30;
     const rotateX = ((y / rect.height) - 0.5) * -30;
-    
+
     setRotate({ x: rotateX, y: rotateY });
-    setGlare({ 
-      x: (x / rect.width) * 100, 
+    setGlare({
+      x: (x / rect.width) * 100,
       y: (y / rect.height) * 100,
       opacity: 1
     });
@@ -31,7 +31,7 @@ export default function HoloBadge() {
 
   return (
     <div className="w-[320px] h-[480px] select-none mx-auto group perspective-1000">
-      <div 
+      <div
         ref={badgeRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -44,16 +44,16 @@ export default function HoloBadge() {
         }}
       >
         {/* Holographic Glare */}
-        <div 
+        <div
           className="absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-300 mix-blend-overlay"
           style={{
             opacity: glare.opacity,
             background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255,255,255,0.4) 10%, transparent 60%)`,
           }}
         />
-        
+
         {/* Iridescent Rainbow Overlay */}
-        <div 
+        <div
           className="absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-300 mix-blend-color-dodge opacity-0 group-hover:opacity-40"
           style={{
             background: `linear-gradient(135deg, rgba(255,0,0,0.5), rgba(0,255,0,0.5), rgba(0,0,255,0.5))`,
@@ -77,7 +77,7 @@ export default function HoloBadge() {
 
           <div className="flex-1 flex flex-col items-center justify-center space-y-4">
             <div className="w-32 h-32 rounded-full border-4 border-[#2a33b1]/40 overflow-hidden relative shadow-[0_0_25px_rgba(42,51,177,0.5)]">
-               <img src="/logo-color.svg" alt="Avatar" className="w-full h-full object-cover bg-[#050505] p-5" />
+              <img src="/logo-black.svg" alt="Avatar" className="w-full h-full object-cover" />
             </div>
             <div className="text-center">
               <h2 className="text-2xl font-bold text-white mb-1 tracking-wider drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">VEDANSH</h2>
@@ -97,18 +97,18 @@ export default function HoloBadge() {
               </div>
             </div>
           </div>
-          
+
           {/* Barcode */}
           <div className="mt-6 flex justify-center opacity-30">
             <div className="w-full h-8 flex justify-between space-x-[2px]">
               {[...Array(45)].map((_, i) => (
-                <div key={i} className={`bg-white h-full ${Math.random() > 0.5 ? 'w-1' : 'w-2'}`}></div>
+                <div key={i} className={`bg-white h-full ${[1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0][i] ? 'w-2' : 'w-1'}`}></div>
               ))}
             </div>
           </div>
         </div>
       </div>
-      
+
       <style>{`
         .perspective-1000 { perspective: 1000px; }
         .preserve-3d { transform-style: preserve-3d; }
