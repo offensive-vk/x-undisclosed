@@ -87,18 +87,28 @@ x-undisclosed/
 │   ├── lib/
 │   │   ├── LetterGlitch.tsx     # React: Canvas-based matrix glitch animation
 │   │   ├── SkillsList.tsx       # React: Accordion with remote SVG icons
+│   │   ├── HoloBadge.tsx        # React: Interactive 3D holographic badge
+│   │   ├── MatrixRain.tsx       # React: Atmospheric matrix rain background
+│   │   ├── NowPlaying.tsx       # React: Live Spotify / favorite track widget
+│   │   ├── TerminalInfo.tsx     # React: Auto-typing terminal component
+│   │   ├── InteractiveShell.tsx # React: Interactive CLI terminal
 │   │   └── LikeButton.tsx       # React: Firebase-powered like counter
 │   │
 │   └── styles/
 │       └── global.css           # Tailwind CSS entry point
 │
-├── .env.example                 # Environment variable template [NEW]
+├── workers/
+│   └── spotify-now-playing/     # Cloudflare Worker for Spotify API
+│       ├── worker.js            # Spotify token refresh + currently-playing endpoint
+│       └── wrangler.toml        # Cloudflare Wrangler deployment config
+│
+├── .env.example                 # Environment variable template
 ├── astro.config.mjs             # Astro config: static output, port 7777, aliases
 ├── tailwind.config.mjs          # TW config: custom scale animation keyframes
 ├── tsconfig.json                # TS: nodenext, react-jsx, path aliases
 ├── package.json                 # v1.1.1, pnpm, Astro 6.4.4
 ├── pnpm-workspace.yaml          # Build allows + dependency overrides
-├── pnpm-lock.yaml               # Lockfile (280KB)
+├── pnpm-lock.yaml               # Lockfile
 ├── Dockerfile                   # Node 26-slim, pnpm, build + preview serve
 ├── .dockerignore                # Excludes node_modules, dist, .astro
 ├── .gitignore                   # Standard Astro ignores
@@ -182,14 +192,16 @@ graph TD
 - **Cards**: Glowing hover shadow (`box-shadow` with `--sec` color)
 - **Links**: Credly badge URLs
 
-### 7. Contact.astro (Contact Form)
-- **Fields**: Name, Email, Message (textarea)
-- **Submit handler**: Composes `mailto:` link with form data
-- **Success state**: Hides form, shows "✅ Thank you" message
+### 7. Contact.astro (Contact Form & Hub)
+- **Glassmorphic Hub**: Availability status (🟢 Open for opportunities), location, response time (< 24h)
+- **Direct Email**: One-click clipboard copy with instant feedback toast
+- **Interactive Form**: Inputs for Name, Email, Message with iconography and smooth focus rings
+- **Submit handler**: Composes `mailto:` link with formatted message
+- **Success state**: Animated glowing checkmark confirmation with reset action
 
 ### 8. Footer.astro
 - **Social links**: GitHub, Email (same as hero)
-- **Tech badges**: Astro, TailwindCSS, Cloudflare with hover color reveal
+- **Tech badges**: Astro, TailwindCSS, Cloudflare with hover ripple color bloom animation
 - **Copyright**: 2026 with GitHub link
 - **LikeButton**: Commented out (`<!-- <LikeButton client:load /> -->`)
 
@@ -206,7 +218,16 @@ graph TD
 - **Accordion**: Single-open toggle pattern
 - **Loading/Error states**: Shows "Loading icons..." or error fallback
 
-### 11. LikeButton.tsx (React Island — Unused)
+### 11. HoloBadge.tsx (React Island)
+- **Interactive 3D**: Holographic tilt badge reacting to cursor movement and glare highlights
+
+### 12. MatrixRain.tsx (React Island)
+- **Atmospheric Background**: Falling purple cyber-rain canvas rendered behind the Certifications section
+
+### 13. NowPlaying.tsx (React Island)
+- **Spotify Integration**: Displays live track or default favorite ("Zemër" by Soolking & Dhurata Dora) with album art, direct Spotify link, and dynamic animated equalizer bars
+
+### 14. LikeButton.tsx (React Island — Optional)
 - **Firebase integration**: Reads/writes `likes/counter` document
 - **Real-time**: `onSnapshot` listener for live updates
 - **Local state**: `localStorage` tracks if user already liked
@@ -296,13 +317,16 @@ graph TD
 
 ---
 
-## 🚀 Remaining Suggestions (Optional)
+## 🚀 Status & Remaining Suggestions
 
+- [x] **Matrix Rain Background** in Certs section
+- [x] **Now Playing Spotify Widget** with fallback to Zemër by Soolking & Dhurata Dora
+- [x] **Enhanced Contact Form UI** (Availability status, direct email copy, modern glassmorphic inputs & animations)
+- [x] **Add Twitter card & Theme-Color meta tags** in Layout.astro
 - [ ] **Update LinkedIn URL** in Home.astro to point to actual profile
 - [ ] **Re-enable LikeButton** in Footer once Firebase env vars are configured
 - [ ] **Add project images** — the `Project` interface supports `image` but it's commented out
 - [ ] **Optimize font delivery** — convert TTF/OTF to WOFF2 subsets for smaller bundle
-- [ ] **Add Twitter card meta tags** in Layout.astro
 
 ---
 

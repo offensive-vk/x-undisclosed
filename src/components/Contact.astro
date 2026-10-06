@@ -1,82 +1,300 @@
-<section id="contact" class="w-full py-12 border-t border-[#ffffff10]">
-  <div class="max-w-5xl mx-auto">
-    <h2 class="text-lg text-[var(--sec)] mb-2 shiny-sec">Wanna Connect?</h2>
-    <h3 class="text-3xl sm:text-4xl md:text-5xl font-medium text-[var(--white)] mb-6">
-      Contact
-    </h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="text-[var(--white-icon)]">
-        <p class="mb-4">
-          Have a question or just want to say hi? Feel free to reach out.
-        </p>
-        <div class="flex items-center gap-2">
-          <span>Location:</span>
-          <span class="text-[var(--white)]">UNDISCLOSED</span>
+---
+const UserIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-[var(--white-icon)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+const MailIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-[var(--white-icon)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`;
+const MessageIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-[var(--white-icon)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`;
+const SendIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`;
+const MapPinIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-[var(--pink)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`;
+const ZapIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-[var(--pink)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`;
+const CopyIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
+const CheckIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="size-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+---
+
+<section id="contact" class="w-full py-16 border-t border-[#ffffff10] relative">
+  <!-- Subtle ambient background glow -->
+  <div class="absolute -top-12 right-1/4 w-96 h-96 bg-[radial-gradient(circle,rgba(164,118,255,0.06)_0%,transparent_70%)] pointer-events-none"></div>
+
+  <div class="max-w-5xl mx-auto relative z-10">
+    <!-- Header -->
+    <div class="mb-10 text-left">
+      <h2 class="text-sm md:text-base text-[var(--pink)] font-semibold tracking-wider uppercase mb-2 shiny-sec">
+        Wanna Connect?
+      </h2>
+      <h3 class="text-3xl sm:text-4xl md:text-5xl font-medium text-[var(--white)] tracking-tight">
+        Let's build something secure & scalable
+      </h3>
+      <p class="text-[var(--white-icon)] mt-3 text-base md:text-lg max-w-2xl leading-relaxed">
+        Have a project inquiry, need cloud infrastructure guidance, or just want to say hi? Reach out directly or drop a message below.
+      </p>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Left Column: Info Hub -->
+      <div class="lg:col-span-5 flex flex-col gap-5">
+        <!-- Availability Card -->
+        <div class="p-5 rounded-2xl bg-gradient-to-br from-[#18181b]/90 to-[#121214]/90 border border-white/10 backdrop-blur-xl shadow-lg relative overflow-hidden group">
+          <div class="absolute inset-0 bg-gradient-to-r from-[var(--pink)]/5 to-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div class="flex items-center gap-3 relative z-10">
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+            </span>
+            <span class="text-sm font-medium text-emerald-400">Available for Opportunities</span>
+          </div>
+          <p class="text-xs text-[var(--white-icon)] mt-2">
+            Open for remote consulting, infrastructure security, and engineering roles.
+          </p>
+        </div>
+
+        <!-- Location & Details Card -->
+        <div class="p-5 rounded-2xl bg-gradient-to-br from-[#18181b]/90 to-[#121214]/90 border border-white/10 backdrop-blur-xl shadow-lg flex flex-col gap-4">
+          <!-- Location -->
+          <div class="flex items-start gap-3.5">
+            <div class="p-2 rounded-xl bg-white/5 border border-white/10 flex-shrink-0 mt-0.5">
+              <Fragment set:html={MapPinIcon} />
+            </div>
+            <div>
+              <span class="text-xs uppercase tracking-wider text-[var(--white-icon)] font-medium">Location</span>
+              <p class="text-sm font-semibold text-[var(--white)]">UNDISCLOSED</p>
+              <span class="text-xs text-[var(--white-icon)]">Remote · Worldwide</span>
+            </div>
+          </div>
+
+          <div class="h-px bg-white/5 w-full"></div>
+
+          <!-- Response Time -->
+          <div class="flex items-start gap-3.5">
+            <div class="p-2 rounded-xl bg-white/5 border border-white/10 flex-shrink-0 mt-0.5">
+              <Fragment set:html={ZapIcon} />
+            </div>
+            <div>
+              <span class="text-xs uppercase tracking-wider text-[var(--white-icon)] font-medium">Response Time</span>
+              <p class="text-sm font-semibold text-[var(--white)]">&lt; 24 Hours</p>
+              <span class="text-xs text-[var(--white-icon)]">Direct via email or contact form</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Direct Email Card with Copy Button -->
+        <div class="p-5 rounded-2xl bg-gradient-to-br from-[#18181b]/90 to-[#121214]/90 border border-white/10 backdrop-blur-xl shadow-lg">
+          <div class="flex items-center justify-between gap-2">
+            <div class="min-w-0 flex-1">
+              <span class="text-xs uppercase tracking-wider text-[var(--white-icon)] font-medium block mb-1">Direct Email</span>
+              <a
+                href="mailto:superuser.ntsystems@outlook.com"
+                class="text-sm font-medium text-[var(--white)] hover:text-[var(--pink)] transition-colors truncate block"
+                title="Send email"
+              >
+                superuser.ntsystems@outlook.com
+              </a>
+            </div>
+            <button
+              id="copy-email-btn"
+              type="button"
+              class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-[var(--white)] font-medium transition-all duration-200 active:scale-95 flex-shrink-0"
+              aria-label="Copy email address"
+            >
+              <span id="copy-icon" class="flex items-center">
+                <Fragment set:html={CopyIcon} />
+              </span>
+              <span id="copy-text">Copy</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div>
-        <form
-          id="contact-form"
-          class="flex flex-col gap-4"
-        >
-          <input
-            type="text"
-            name="from_name"
-            placeholder="Name"
-            required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
-          />
-          <input
-            type="email"
-            name="reply_to"
-            placeholder="Email"
-            required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)]"
-          />
-          <textarea
-            name="message"
-            placeholder="Message"
-            rows="6"
-            required
-            class="px-4 py-2 bg-[#1414149c] text-[var(--white)] border border-[var(--white-icon-tr)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--sec)] resize-none"
-          ></textarea>
-          <button
-            type="submit"
-            class="px-4 py-2 bg-[var(--white-icon-tr)] text-[var(--white)] rounded-lg opacity-60 transition-opacity border border-[var(--white-icon-tr)] hover:opacity-100 hover:bg-[var(--white-icon-tr)]"
+      <!-- Right Column: Interactive Form -->
+      <div class="lg:col-span-7">
+        <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#18181b]/95 via-[#141416]/95 to-[#101012]/95 border border-white/10 backdrop-blur-2xl shadow-2xl relative overflow-hidden">
+          <!-- Ambient gradient flare inside card -->
+          <div class="absolute -top-20 -right-20 w-48 h-48 bg-[radial-gradient(circle,rgba(164,118,255,0.15)_0%,transparent_70%)] pointer-events-none"></div>
+
+          <form id="contact-form" class="flex flex-col gap-4 relative z-10">
+            <!-- Name Input -->
+            <div class="flex flex-col gap-1.5">
+              <label for="contact-name" class="text-xs uppercase tracking-wider font-semibold text-[var(--white-icon)]">
+                Your Name
+              </label>
+              <div class="relative flex items-center">
+                <div class="absolute left-3.5 pointer-events-none opacity-60">
+                  <Fragment set:html={UserIcon} />
+                </div>
+                <input
+                  id="contact-name"
+                  type="text"
+                  name="from_name"
+                  placeholder="e.g. John Doe"
+                  required
+                  class="w-full pl-11 pr-4 py-3 bg-[#111113]/80 text-[var(--white)] placeholder:text-[var(--white-icon)]/40 border border-white/10 rounded-xl focus:outline-none focus:border-[var(--pink)] focus:ring-2 focus:ring-[var(--pink)]/20 transition-all text-sm"
+                />
+              </div>
+            </div>
+
+            <!-- Email Input -->
+            <div class="flex flex-col gap-1.5">
+              <label for="contact-email" class="text-xs uppercase tracking-wider font-semibold text-[var(--white-icon)]">
+                Your Email
+              </label>
+              <div class="relative flex items-center">
+                <div class="absolute left-3.5 pointer-events-none opacity-60">
+                  <Fragment set:html={MailIcon} />
+                </div>
+                <input
+                  id="contact-email"
+                  type="email"
+                  name="reply_to"
+                  placeholder="name@domain.com"
+                  required
+                  class="w-full pl-11 pr-4 py-3 bg-[#111113]/80 text-[var(--white)] placeholder:text-[var(--white-icon)]/40 border border-white/10 rounded-xl focus:outline-none focus:border-[var(--pink)] focus:ring-2 focus:ring-[var(--pink)]/20 transition-all text-sm"
+                />
+              </div>
+            </div>
+
+            <!-- Message Textarea -->
+            <div class="flex flex-col gap-1.5">
+              <label for="contact-message" class="text-xs uppercase tracking-wider font-semibold text-[var(--white-icon)]">
+                Message
+              </label>
+              <div class="relative">
+                <div class="absolute left-3.5 top-3.5 pointer-events-none opacity-60">
+                  <Fragment set:html={MessageIcon} />
+                </div>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  placeholder="Tell me about your project, ideas, or questions..."
+                  rows="4"
+                  required
+                  class="w-full pl-11 pr-4 py-3 bg-[#111113]/80 text-[var(--white)] placeholder:text-[var(--white-icon)]/40 border border-white/10 rounded-xl focus:outline-none focus:border-[var(--pink)] focus:ring-2 focus:ring-[var(--pink)]/20 transition-all text-sm resize-none"
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              id="contact-submit-btn"
+              type="submit"
+              class="mt-2 w-full flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#2a33b1] via-[#6e44ff] to-[#a476ff] text-white font-medium text-sm shadow-[0_4px_20px_-4px_rgba(164,118,255,0.4)] hover:shadow-[0_6px_28px_-2px_rgba(164,118,255,0.6)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 cursor-pointer"
+            >
+              <span>Send Message</span>
+              <Fragment set:html={SendIcon} />
+            </button>
+          </form>
+
+          <!-- Success State Display -->
+          <div
+            id="form-message"
+            class="hidden flex-col items-center justify-center text-center py-10 px-4 gap-4 relative z-10 animate-fade-in"
           >
-            Submit
-          </button>
-        </form>
-        <div
-          id="form-message"
-          class="hidden justify-center items-center mt-4 text-[var(--white)] text-lg"
-        >
-          ✅ Thank you for your message!
+            <div class="size-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-[0_0_24px_rgba(16,185,129,0.2)]">
+              <svg xmlns="http://www.w3.org/2000/svg" class="size-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-xl font-semibold text-[var(--white)] mb-1">Message Composed!</h4>
+              <p class="text-sm text-[var(--white-icon)] max-w-sm">
+                Your email client has been prepared with your message details. Send it to reach me directly!
+              </p>
+            </div>
+            <button
+              id="send-another-btn"
+              type="button"
+              class="mt-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-[var(--white)] transition-all"
+            >
+              Send Another Message
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<script type="module" is:inline>
-  const form = document.getElementById("contact-form");
-  const formMessage = document.getElementById("form-message");
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const name = form.querySelector('[name="from_name"]').value;
-    const email = form.querySelector('[name="reply_to"]').value;
-    const message = form.querySelector('[name="message"]').value;
-    const subject = `Portfolio Contact from ${name}`;
-    const body = `From: ${name} (${email})\n\n${message}`;
-    window.open(
-      `mailto:superuser.ntsystems@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
-      "_self"
-    );
-    form.reset();
-    form.style.display = "none";
-    formMessage.classList.remove("hidden");
-    formMessage.classList.add("flex");
-  });
+  .animate-fade-in {
+    animation: fadeIn 0.35s ease-out forwards;
+  }
+</style>
+
+<script type="module" is:inline>
+  function setupContact() {
+    const form = document.getElementById("contact-form");
+    const formMessage = document.getElementById("form-message");
+    const sendAnotherBtn = document.getElementById("send-another-btn");
+    const copyBtn = document.getElementById("copy-email-btn");
+    const copyText = document.getElementById("copy-text");
+    const copyIcon = document.getElementById("copy-icon");
+
+    // Copy email handler
+    if (copyBtn) {
+      copyBtn.addEventListener("click", async () => {
+        const email = "superuser.ntsystems@outlook.com";
+        try {
+          await navigator.clipboard.writeText(email);
+          if (copyText) copyText.textContent = "Copied! ✨";
+          if (copyBtn) copyBtn.classList.add("border-emerald-500/40", "bg-emerald-500/10");
+          setTimeout(() => {
+            if (copyText) copyText.textContent = "Copy";
+            if (copyBtn) copyBtn.classList.remove("border-emerald-500/40", "bg-emerald-500/10");
+          }, 2000);
+        } catch {
+          // Fallback if clipboard API is blocked
+          window.location.href = `mailto:${email}`;
+        }
+      });
+    }
+
+    // Form submit handler
+    if (form) {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const nameInput = form.querySelector('[name="from_name"]');
+        const emailInput = form.querySelector('[name="reply_to"]');
+        const messageInput = form.querySelector('[name="message"]');
+
+        const name = nameInput ? nameInput.value.trim() : "";
+        const email = emailInput ? emailInput.value.trim() : "";
+        const message = messageInput ? messageInput.value.trim() : "";
+
+        const subject = `Portfolio Inquiry from ${name}`;
+        const body = `Hi Vedansh,\n\n${message}\n\n---\nFrom: ${name}\nEmail: ${email}`;
+
+        window.open(
+          `mailto:superuser.ntsystems@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
+          "_self"
+        );
+
+        form.reset();
+        form.style.display = "none";
+        if (formMessage) {
+          formMessage.classList.remove("hidden");
+          formMessage.classList.add("flex");
+        }
+      });
+    }
+
+    // Reset handler
+    if (sendAnotherBtn && form && formMessage) {
+      sendAnotherBtn.addEventListener("click", () => {
+        formMessage.classList.add("hidden");
+        formMessage.classList.remove("flex");
+        form.style.display = "flex";
+      });
+    }
+  }
+
+  setupContact();
+  document.addEventListener("astro:page-load", setupContact);
 </script>

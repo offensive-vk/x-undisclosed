@@ -7,6 +7,9 @@ import react from '@astrojs/react';
 export default defineConfig({
   integrations: [tailwind(), react()],
   vite: {
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime']
+    },
     resolve: {
       alias: {
         '@': '/src',

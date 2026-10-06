@@ -6,15 +6,29 @@ import Projects from "@/components/Projects.astro";
 import Contact from "@/components/Contact.astro";
 import Footer from "@/components/Footer.astro";
 import Certs from "@/components/Certs.astro";
+import MatrixRain from "../lib/MatrixRain.tsx";
+import NowPlaying from "../lib/NowPlaying.tsx";
 ---
 
 <Layout title="Portfolio // NS17.LAT // UNDISCLOSED">
   <Nav />
   <main>
     <Home />
-    <Projects />
-    <Certs />
+    <!-- Projects & Certifications with atmospheric Matrix Rain cyber background -->
+    <div class="relative overflow-hidden">
+      <div class="absolute inset-0 opacity-40 z-0 pointer-events-none">
+        <MatrixRain client:load color="#a476ff" transparent={true} />
+      </div>
+      <div class="relative z-10">
+        <Projects />
+        <Certs />
+      </div>
+    </div>
     <Contact />
   </main>
+  <!-- Now Playing Spotify Widget -->
+  <div class="max-w-5xl mx-auto mb-6">
+    <NowPlaying client:visible />
+  </div>
   <Footer />
 </Layout>
