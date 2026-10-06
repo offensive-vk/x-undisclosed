@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-export default function MatrixRain({ color = '#0F0' }: { color?: string }) {
+export default function MatrixRain({ color = '#0F0', transparent = false }: { color?: string; transparent?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -74,8 +74,11 @@ export default function MatrixRain({ color = '#0F0' }: { color?: string }) {
   return (
     <canvas 
       ref={canvasRef} 
-      className="w-full h-full block rounded-xl overflow-hidden border border-[#ffffff10]"
-      style={{ background: '#050505' }}
+      className={transparent 
+        ? "w-full h-full block" 
+        : "w-full h-full block rounded-xl overflow-hidden border border-[#ffffff10]"
+      }
+      style={{ background: transparent ? 'transparent' : '#050505' }}
     />
   );
 }

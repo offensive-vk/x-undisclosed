@@ -296,13 +296,16 @@ graph TD
 
 ---
 
-## 🚀 Remaining Suggestions (Optional)
+## 🚀 Status & Remaining Suggestions
 
+- [x] **Matrix Rain Background** in Certs section
+- [x] **Now Playing Spotify Widget** with fallback to Zemër by Soolking & Dhurata Dora
+- [x] **Enhanced Contact Form UI** (Availability status, direct email copy, modern glassmorphic inputs & animations)
+- [x] **Add Twitter card & Theme-Color meta tags** in Layout.astro
 - [ ] **Update LinkedIn URL** in Home.astro to point to actual profile
 - [ ] **Re-enable LikeButton** in Footer once Firebase env vars are configured
 - [ ] **Add project images** — the `Project` interface supports `image` but it's commented out
 - [ ] **Optimize font delivery** — convert TTF/OTF to WOFF2 subsets for smaller bundle
-- [ ] **Add Twitter card meta tags** in Layout.astro
 
 ---
 
