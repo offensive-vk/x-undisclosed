@@ -41,18 +41,6 @@ Or build a custom React island that fetches from GitHub's public API for a more 
 
 ---
 
-### 4. 🏆 CTF / Achievements Section
-**Effort: 2–3 hours**  
-A grid of Capture-The-Flag competition results, bug bounty highlights, or security achievements. Fits perfectly after Certifications.
-
-```
-Cards: Platform logo · Event name · Rank/Place · Year · Challenge count
-Platforms: HackTheBox, TryHackMe, CTFtime, Bugcrowd
-```
-Could pull live HackTheBox rank from their public API.
-
----
-
 ### 5. 🕐 Career Timeline
 **Effort: 3–4 hours**  
 A vertical/horizontal scrolling timeline of your career milestones, certifications, and projects. Use the existing purple-blue color scheme for a glowing connector line effect.
@@ -77,59 +65,6 @@ Categories:
   Security     → Burp Suite, Nmap, Wireshark, Metasploit
   Cloud        → Cloudflare, Docker, VPS provider
 ```
-
----
-
-### 7. 🌧️ Matrix Rain Background
-**Effort: 30 minutes** — `MatrixRain.tsx` already exists!  
-Use it as an atmospheric background behind the Certifications section or inside project cards. Creates a beautiful "hacker aesthetic" without adding any code.
-
-```astro
-<!-- Wrap Certs section in: -->
-<div class="relative">
-  <div class="absolute inset-0 opacity-10 z-0">
-    <MatrixRain client:visible color="var(--pink)" />
-  </div>
-  <div class="relative z-10">
-    <Certs />
-  </div>
-</div>
-```
-
----
-
-### 8. 🎵 Now Playing Widget
-**Effort: 3–4 hours**  
-A small Spotify "Now Playing" card that shows what you're currently listening to. Extremely popular on portfolios — pairs well with the dark aesthetic.
-
-```
-Stack: Spotify Web API → Vercel Edge Function (or Cloudflare Worker) → React island
-Display: Album art · Track name · Artist · Animated equalizer bars if playing
-```
-
----
-
-## 📄 New Pages (multi-page Astro routing)
-
-### 9. 📝 Blog / Security Writeups
-**Effort: 1–2 days** — Astro's killer feature is MDX content collections.  
-A blog for CTF writeups, vulnerability research, and tech notes. Astro handles this natively with zero config.
-
-```
-src/content/
-  config.ts          # Zod schema for posts
-  blog/
-    htb-machine-1.md
-    cve-analysis.mdx
-    ...
-
-src/pages/
-  blog/
-    index.astro        # Post listing
-    [slug].astro       # Individual post
-```
-
-**Benefits:** Each writeup gets its own URL, Google-indexable, builds your reputation in the security community.
 
 ---
 
@@ -166,18 +101,6 @@ GET /api/status         → "online/offline" heartbeat
 ```
 These also make your portfolio machine-readable — resume-as-an-API.
 
----
-
-## ⚡ Interactive Features
-
-### 13. 🔥 Re-enable `LikeButton` with Firebase
-**Effort: 10 minutes** (after env vars are set)  
-The Firebase env var is now fixed (`PUBLIC_FIREBASE_API_KEY`). Just uncomment one line in `Footer.astro` and set up the Firestore document.
-
-```astro
-<!-- Footer.astro, line 41: -->
-<LikeButton client:load />
-```
 
 ---
 
@@ -191,13 +114,6 @@ cursor: url('/cursor-crosshair.cur'), crosshair;
 
 /* Or a React component that tracks mouse position with a trailing glow dot */
 ```
-
----
-
-### 15. 📊 Live Visitor Counter
-**Effort: 1–2 hours** — Firebase is already wired up.  
-A realtime `onSnapshot` counter using the same Firebase/Firestore setup as `LikeButton`. Shows total site visits (or unique per session via localStorage).
-
 ---
 
 ### 16. 🔍 Site-wide Search (`/search`)
@@ -219,12 +135,13 @@ Add a second language (Arabic, Hindi, Russian — your call) to reach a wider au
 
 ## 🎨 Visual Upgrades
 
-### 18. 🌌 Three.js / OGL Scene in Hero
+### 18. 🌌 Three.js / WebGL Scene in Hero
 **Effort: Weekend project**  
-You already have **`ogl`** in your `dependencies` — it's never used! Build a subtle 3D background: a rotating wireframe sphere, floating particles, or a distorted mesh that reacts to mouse movement.
+Build a subtle 3D background: a rotating wireframe sphere, floating particles, or a distorted mesh that reacts to mouse movement using lightweight WebGL (e.g. `ogl` or `three`).
 
 ```tsx
-// ogl is already installed — just use it:
+// Install lightweight WebGL library if needed:
+// pnpm add ogl
 import { Renderer, Camera, Geometry, Program, Mesh } from 'ogl';
 ```
 
@@ -264,26 +181,26 @@ While the dark theme is core to the brand, offer 2–3 accent color themes: the 
 ## 🗺️ Suggested Roadmap
 
 ```
-Phase 1 — "Activate the Library" (Today, ~1 hour)
-  ✅ Use TerminalInfo in hero
-  ✅ Add InteractiveShell easter egg to Contact
+Phase 1 — "Activate the Library & Core UI" (Completed)
   ✅ Use MatrixRain behind Certs
-  ✅ Re-enable LikeButton
+  ✅ Add Spotify Now Playing Widget (Zemër / live worker API)
+  ✅ Redesign "Wanna Connect?" Glassmorphic Contact Hub
+  ✅ Add Twitter Cards & Theme-Color Meta Tags
 
-Phase 2 — "Flesh it out" (This week)
+Phase 2 — "Flesh it out" (Next Up)
+  → TerminalInfo / InteractiveShell integrations
   → GitHub Stats section
-  → CTF/Achievements section
+  → Career Timeline
   → Tools & Setup section
   → Custom cursor
 
-Phase 3 — "Go multi-page" (This month)
+Phase 3 — "Go multi-page"
   → Blog/Writeups with MDX content collections
   → /tools page
   → Pagefind search
 
-Phase 4 — "Make it legendary" (Long-term)
-  → OGL 3D hero scene
-  → Spotify Now Playing
+Phase 4 — "Make it legendary"
+  → 3D WebGL hero scene
   → /vault password page
   → Public mini-API
 ```
