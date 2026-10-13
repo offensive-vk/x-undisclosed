@@ -1,0 +1,489 @@
+---
+---
+
+<!-- Easter Egg: Hidden Terminal -->
+<div id="easter-egg-zone" class="relative w-full mt-2 mb-4">
+  <!-- Trigger: subtle glitch text at the very bottom -->
+  <div id="egg-trigger" class="flex items-center justify-center py-6 cursor-pointer select-none group" aria-label="Secret area">
+    <div class="relative">
+      <span id="egg-hint" class="text-[10px] tracking-[0.4em] uppercase text-[#ffffff08] transition-all duration-700 group-hover:text-[#ffffff18] group-hover:tracking-[0.6em] font-mono">
+        ▸ curiosity rewarded ◂
+      </span>
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--pink)] to-transparent opacity-0 group-hover:opacity-[0.04] blur-xl transition-opacity duration-700"></div>
+    </div>
+  </div>
+
+  <!-- Terminal Overlay -->
+  <div id="egg-terminal" class="hidden mx-auto max-w-3xl rounded-2xl overflow-hidden border border-[#33ff3320] shadow-[0_0_60px_-15px_rgba(51,255,51,0.15)] transition-all duration-500">
+    <!-- Terminal Title Bar -->
+    <div class="flex items-center gap-2 px-4 py-2.5 bg-[#0a0a0a] border-b border-[#33ff3315]">
+      <div class="flex gap-1.5">
+        <button id="term-close" class="w-3 h-3 rounded-full bg-[#ff5f57] hover:brightness-125 transition-all cursor-pointer" aria-label="Close terminal"></button>
+        <div class="w-3 h-3 rounded-full bg-[#febc2e80]"></div>
+        <div class="w-3 h-3 rounded-full bg-[#28c84080]"></div>
+      </div>
+      <span class="flex-1 text-center text-[10px] tracking-widest uppercase text-[#33ff3350] font-mono">ns17@undisclosed — zsh</span>
+    </div>
+
+    <!-- CRT Screen -->
+    <div id="crt-screen" class="relative bg-[#050505] p-5 min-h-[280px] max-h-[400px] overflow-y-auto font-mono text-sm leading-relaxed crt-effect">
+      <!-- Scanline overlay -->
+      <div class="crt-scanlines pointer-events-none absolute inset-0 z-10"></div>
+      <!-- Phosphor glow -->
+      <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(51,255,51,0.03)_0%,transparent_70%)]"></div>
+
+      <!-- Terminal output -->
+      <div id="term-output" class="relative z-20 text-[#33ff33]"></div>
+
+      <!-- Input Line -->
+      <div id="term-input-line" class="relative z-20 flex items-center gap-2 mt-2">
+        <span class="text-[#33ff33aa] text-xs whitespace-nowrap">visitor@ns17 ~ $</span>
+        <input
+          id="term-input"
+          type="text"
+          class="flex-1 bg-transparent border-none outline-none text-[#33ff33] font-mono text-sm caret-[#33ff33]"
+          autocomplete="off"
+          spellcheck="false"
+          autofocus
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* CRT Scanline Effect */
+  .crt-scanlines {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.15) 2px,
+      rgba(0, 0, 0, 0.15) 4px
+    );
+    animation: crt-flicker 0.08s infinite alternate;
+  }
+
+  @keyframes crt-flicker {
+    0% { opacity: 0.85; }
+    100% { opacity: 1; }
+  }
+
+  /* Phosphor text glow */
+  .crt-effect {
+    text-shadow: 0 0 4px rgba(51, 255, 51, 0.4), 0 0 12px rgba(51, 255, 51, 0.1);
+  }
+
+  /* Smooth scroll for terminal */
+  #crt-screen {
+    scrollbar-width: none;
+  }
+  #crt-screen::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Terminal reveal animation */
+  #egg-terminal.revealing {
+    animation: terminalBoot 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes terminalBoot {
+    0% {
+      opacity: 0;
+      transform: scaleY(0.01) scaleX(0.8);
+      filter: brightness(3);
+    }
+    40% {
+      opacity: 1;
+      transform: scaleY(0.02) scaleX(1);
+      filter: brightness(2);
+    }
+    100% {
+      opacity: 1;
+      transform: scaleY(1) scaleX(1);
+      filter: brightness(1);
+    }
+  }
+
+  /* Blinking cursor via caret color animation */
+  #term-input {
+    animation: blink-caret 1s step-end infinite;
+  }
+
+  @keyframes blink-caret {
+    50% { caret-color: transparent; }
+  }
+
+  /* Glitch text on trigger */
+  #egg-trigger:active #egg-hint {
+    animation: glitch-text 0.3s steps(2) forwards;
+  }
+
+  @keyframes glitch-text {
+    0% { transform: translate(0); filter: hue-rotate(0deg); }
+    25% { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
+    50% { transform: translate(2px, -1px); filter: hue-rotate(180deg); }
+    75% { transform: translate(-1px, -1px); filter: hue-rotate(270deg); }
+    100% { transform: translate(0); filter: hue-rotate(360deg); }
+  }
+</style>
+
+<script>
+  function setupEasterEgg() {
+    const trigger = document.getElementById('egg-trigger');
+    const terminal = document.getElementById('egg-terminal');
+    const output = document.getElementById('term-output');
+    const input = document.getElementById('term-input') as HTMLInputElement | null;
+    const closeBtn = document.getElementById('term-close');
+    const screen = document.getElementById('crt-screen');
+
+    if (!trigger || !terminal || !output || !input || !closeBtn || !screen) return;
+
+    let isOpen = false;
+    let commandHistory: string[] = [];
+    let historyIndex = -1;
+    let matrixInterval: number | null = null;
+
+    const ASCII_SKULL = `
+    <span class="text-[#ff4444]">
+        ██████╗ ██╗   ██╗███████╗████████╗███████╗██████╗ 
+        ██╔══██╗██║   ██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗
+        ██████╔╝██║   ██║███████╗   ██║   █████╗  ██║  ██║
+        ██╔══██╗██║   ██║╚════██║   ██║   ██╔══╝  ██║  ██║
+        ██████╔╝╚██████╔╝███████║   ██║   ███████╗██████╔╝
+        ╚═════╝  ╚═════╝ ╚══════╝   ╚═╝   ╚══════╝╚═════╝ 
+    </span>`;
+
+    const BOOT_MESSAGES = [
+      '<span class="text-[#33ff3380]">GNU/Linux 6.9.0-ns17 (tty1)</span>',
+      '',
+      '<span class="text-[#33ff33cc]">  ███╗   ██╗███████╗ ██╗███████╗</span>',
+      '<span class="text-[#33ff33cc]">  ████╗  ██║██╔════╝███║╚════██║</span>',
+      '<span class="text-[#33ff33cc]">  ██╔██╗ ██║███████╗╚██║    ██╔╝</span>',
+      '<span class="text-[#33ff33cc]">  ██║╚██╗██║╚════██║ ██║   ██╔╝ </span>',
+      '<span class="text-[#33ff33cc]">  ██║ ╚████║███████║ ██║   ██║  </span>',
+      '<span class="text-[#33ff33cc]">  ╚═╝  ╚═══╝╚══════╝ ╚═╝   ╚═╝  </span>',
+      '',
+      '<span class="text-[#33ff3360]">Last login: ' + new Date().toUTCString() + ' from 127.0.0.1</span>',
+      '<span class="text-[#ffcc00]">⚡ You found the secret terminal. Type <span class="text-white">"help"</span> for available commands.</span>',
+      '',
+    ];
+
+    function appendLine(html: string) {
+      const line = document.createElement('div');
+      line.innerHTML = html;
+      line.className = 'leading-5';
+      output.appendChild(line);
+      screen.scrollTop = screen.scrollHeight;
+    }
+
+    function typeWriter(text: string, speed = 25): Promise<void> {
+      return new Promise((resolve) => {
+        const line = document.createElement('div');
+        line.className = 'leading-5';
+        output.appendChild(line);
+
+        let i = 0;
+        const timer = setInterval(() => {
+          if (i < text.length) {
+            line.textContent += text[i];
+            i++;
+            screen.scrollTop = screen.scrollHeight;
+          } else {
+            clearInterval(timer);
+            resolve();
+          }
+        }, speed);
+      });
+    }
+
+    function openTerminal() {
+      if (isOpen) return;
+      isOpen = true;
+      terminal.classList.remove('hidden');
+      terminal.classList.add('revealing');
+      output.innerHTML = '';
+
+      // Boot sequence
+      let delay = 200;
+      BOOT_MESSAGES.forEach((msg, i) => {
+        setTimeout(() => {
+          appendLine(msg);
+        }, delay + i * 80);
+      });
+
+      setTimeout(() => {
+        input.focus();
+      }, delay + BOOT_MESSAGES.length * 80 + 100);
+    }
+
+    function closeTerminal() {
+      isOpen = false;
+      if (matrixInterval) {
+        clearInterval(matrixInterval);
+        matrixInterval = null;
+      }
+      terminal.classList.add('hidden');
+      terminal.classList.remove('revealing');
+      output.innerHTML = '';
+    }
+
+    function processCommand(cmd: string) {
+      const trimmed = cmd.trim().toLowerCase();
+      
+      // Echo the command
+      appendLine(`<span class="text-[#33ff33aa]">visitor@ns17 ~ $</span> <span class="text-[#33ff33]">${cmd}</span>`);
+
+      if (!trimmed) return;
+
+      commandHistory.unshift(trimmed);
+      historyIndex = -1;
+
+      switch (trimmed) {
+        case 'help':
+          appendLine('<span class="text-[#ffcc00]">━━━ Available Commands ━━━</span>');
+          appendLine('<span class="text-white">  whoami</span>        <span class="text-[#33ff3380]">— Who is behind this site?</span>');
+          appendLine('<span class="text-white">  skills</span>        <span class="text-[#33ff3380]">— Technical skill tree</span>');
+          appendLine('<span class="text-white">  uptime</span>        <span class="text-[#33ff3380]">— How long I\'ve been coding</span>');
+          appendLine('<span class="text-white">  ping</span>          <span class="text-[#33ff3380]">— Test the connection</span>');
+          appendLine('<span class="text-white">  neofetch</span>      <span class="text-[#33ff3380]">— System info, hacker style</span>');
+          appendLine('<span class="text-white">  sudo rm -rf /</span> <span class="text-[#33ff3380]">— Don\'t try this at home</span>');
+          appendLine('<span class="text-white">  matrix</span>        <span class="text-[#33ff3380]">— Enter the matrix</span>');
+          appendLine('<span class="text-white">  fortune</span>       <span class="text-[#33ff3380]">— Random dev wisdom</span>');
+          appendLine('<span class="text-white">  clear</span>         <span class="text-[#33ff3380]">— Clear screen</span>');
+          appendLine('<span class="text-white">  exit</span>          <span class="text-[#33ff3380]">— Close terminal</span>');
+          appendLine('');
+          break;
+
+        case 'whoami':
+          appendLine('<span class="text-[#a476ff]">┌─────────────────────────────────────┐</span>');
+          appendLine('<span class="text-[#a476ff]">│</span> <span class="text-white font-bold">Vedansh</span> <span class="text-[#33ff3380]">aka</span> <span class="text-[#ff6b6b]">@offensive-vk</span>        <span class="text-[#a476ff]">│</span>');
+          appendLine('<span class="text-[#a476ff]">│</span> <span class="text-[#33ff3380]">Cloud Architect · Security Engineer</span> <span class="text-[#a476ff]">│</span>');
+          appendLine('<span class="text-[#a476ff]">│</span> <span class="text-[#33ff3380]">Linux Enthusiast · Automation Addict</span><span class="text-[#a476ff]">│</span>');
+          appendLine('<span class="text-[#a476ff]">│</span> <span class="text-[#33ff3380]">PGP: 0xDEADBEEF</span>                   <span class="text-[#a476ff]">│</span>');
+          appendLine('<span class="text-[#a476ff]">└─────────────────────────────────────┘</span>');
+          appendLine('');
+          break;
+
+        case 'skills':
+          appendLine('<span class="text-[#ffcc00]">⚡ Skill Tree</span>');
+          appendLine('');
+          appendLine('<span class="text-white">  Cloud    </span> <span class="text-[#33ff33]">████████████████████░</span> <span class="text-[#33ff33cc]">95%</span>');
+          appendLine('<span class="text-white">  Linux    </span> <span class="text-[#33ff33]">███████████████████░░</span> <span class="text-[#33ff33cc]">90%</span>');
+          appendLine('<span class="text-white">  Security </span> <span class="text-[#33ff33]">██████████████████░░░</span> <span class="text-[#33ff33cc]">85%</span>');
+          appendLine('<span class="text-white">  Docker   </span> <span class="text-[#33ff33]">██████████████████░░░</span> <span class="text-[#33ff33cc]">85%</span>');
+          appendLine('<span class="text-white">  React    </span> <span class="text-[#33ff33]">████████████████░░░░░</span> <span class="text-[#33ff33cc]">78%</span>');
+          appendLine('<span class="text-white">  Hacking  </span> <span class="text-[#ff4444]">██████████████████████</span> <span class="text-[#ff4444]">∞%</span>');
+          appendLine('');
+          break;
+
+        case 'uptime':
+          const startYear = 2019;
+          const now = new Date();
+          const years = now.getFullYear() - startYear;
+          const days = Math.floor((now.getTime() - new Date(startYear, 0, 1).getTime()) / 86400000);
+          appendLine(`<span class="text-[#33ff33]">up ${years} years, ${days} days, ∞ cups of coffee</span>`);
+          appendLine(`<span class="text-[#33ff3360]">load average: 0.42, 0.69, 1.337</span>`);
+          appendLine('');
+          break;
+
+        case 'ping':
+          appendLine('<span class="text-[#33ff33]">PING ns17.lat (127.0.0.1): 56 data bytes</span>');
+          const latencies = [0.042, 0.037, 0.051, 0.044];
+          latencies.forEach((lat, i) => {
+            setTimeout(() => {
+              appendLine(`<span class="text-[#33ff33]">64 bytes from 127.0.0.1: icmp_seq=${i} ttl=64 time=${lat} ms</span>`);
+              if (i === latencies.length - 1) {
+                appendLine('');
+                appendLine('<span class="text-[#33ff3380]">--- ns17.lat ping statistics ---</span>');
+                appendLine('<span class="text-[#33ff3380]">4 packets transmitted, 4 received, 0% loss</span>');
+                appendLine('<span class="text-[#ffcc00]">Connection status: ⚡ BLAZING FAST</span>');
+                appendLine('');
+              }
+            }, (i + 1) * 400);
+          });
+          break;
+
+        case 'neofetch':
+          appendLine('<span class="text-[#a476ff]">        .--.        </span>  <span class="text-white">visitor</span><span class="text-[#33ff3380]">@</span><span class="text-white">ns17.lat</span>');
+          appendLine('<span class="text-[#a476ff]">       |o_o |       </span>  <span class="text-[#33ff3380]">─────────────────</span>');
+          appendLine('<span class="text-[#a476ff]">       |:_/ |       </span>  <span class="text-[#a476ff]">OS:</span> <span class="text-[#33ff33]">Arch btw x86_64</span>');
+          appendLine('<span class="text-[#a476ff]">      //   \\ \\      </span>  <span class="text-[#a476ff]">Host:</span> <span class="text-[#33ff33]">The Internet</span>');
+          appendLine('<span class="text-[#a476ff]">     (|     | )     </span>  <span class="text-[#a476ff]">Kernel:</span> <span class="text-[#33ff33]">6.9.0-ns17</span>');
+          appendLine('<span class="text-[#a476ff]">    /\'\\_   _/`\\    </span>  <span class="text-[#a476ff]">Shell:</span> <span class="text-[#33ff33]">zsh 5.9.0</span>');
+          appendLine('<span class="text-[#a476ff]">    \\___)=(___/    </span>  <span class="text-[#a476ff]">IDE:</span> <span class="text-[#33ff33]">Neovim + VSCode</span>');
+          appendLine('<span class="text-[#a476ff]">                    </span>  <span class="text-[#a476ff]">Music:</span> <span class="text-[#33ff33]">Lo-fi beats 24/7</span>');
+          appendLine('');
+          break;
+
+        case 'sudo rm -rf /':
+        case 'sudo rm -rf':
+          appendLine('<span class="text-[#ff4444]">☠ INITIATING SYSTEM WIPE...</span>');
+          setTimeout(() => appendLine('<span class="text-[#ff4444]">Deleting /home/visitor/regrets...</span>'), 300);
+          setTimeout(() => appendLine('<span class="text-[#ff4444]">Deleting /var/log/mistakes...</span>'), 600);
+          setTimeout(() => appendLine('<span class="text-[#ff4444]">Deleting /usr/bin/social-skills...</span>'), 900);
+          setTimeout(() => appendLine('<span class="text-[#ffcc00]">rm: cannot remove \'/etc/stubbornness\': Permission denied</span>'), 1200);
+          setTimeout(() => {
+            appendLine('');
+            appendLine(ASCII_SKULL);
+            appendLine('<span class="text-[#ff6b6b]">Just kidding. This website is still here. 😈</span>');
+            appendLine('<span class="text-[#33ff3360]">Pro tip: never run this on a real machine.</span>');
+            appendLine('');
+          }, 1800);
+          break;
+
+        case 'matrix':
+          appendLine('<span class="text-[#33ff33]">Entering the Matrix... Press any key to exit.</span>');
+          const matrixChars = 'ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ012345789Z:.\"=*+-<>¦|╌';
+          if (matrixInterval) clearInterval(matrixInterval);
+          matrixInterval = setInterval(() => {
+            let line = '';
+            const cols = Math.min(60, Math.floor(screen.clientWidth / 9));
+            for (let i = 0; i < cols; i++) {
+              const bright = Math.random() > 0.7;
+              const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+              line += bright
+                ? `<span class="text-[#33ff33]">${char}</span>`
+                : `<span class="text-[#33ff3340]">${char}</span>`;
+            }
+            appendLine(line);
+            // Limit lines
+            while (output.children.length > 80) {
+              output.removeChild(output.children[0]);
+            }
+          }, 80) as unknown as number;
+
+          const stopMatrix = () => {
+            if (matrixInterval) {
+              clearInterval(matrixInterval);
+              matrixInterval = null;
+            }
+            appendLine('');
+            appendLine('<span class="text-[#ffcc00]">You chose the red pill. Welcome back.</span>');
+            appendLine('');
+            document.removeEventListener('keydown', stopMatrix);
+          };
+          // Skip the current enter keyup
+          setTimeout(() => {
+            document.addEventListener('keydown', stopMatrix, { once: true });
+          }, 200);
+          break;
+
+        case 'fortune':
+          const fortunes = [
+            '"There are only two hard things in Computer Science: cache invalidation and naming things." — Phil Karlton',
+            '"Any sufficiently advanced technology is indistinguishable from magic." — Arthur C. Clarke',
+            '"First, solve the problem. Then, write the code." — John Johnson',
+            '"The best error message is the one that never shows up." — Thomas Fuchs',
+            '"It works on my machine." — Every developer ever',
+            '"rm -rf node_modules && npm install" — The universal fix',
+            '"I don\'t always test my code, but when I do, I do it in production." — Anonymous',
+            '"404: Motivation not found." — Monday morning',
+            '"git commit -m \'fixed the thing\'" — Narrator: it was not fixed.',
+            '"sudo make me a sandwich." — xkcd',
+          ];
+          const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+          appendLine(`<span class="text-[#ffcc00]">🔮 ${fortune}</span>`);
+          appendLine('');
+          break;
+
+        case 'clear':
+          output.innerHTML = '';
+          break;
+
+        case 'exit':
+        case 'quit':
+          appendLine('<span class="text-[#33ff3360]">logout</span>');
+          appendLine('<span class="text-[#33ff3340]">Connection to ns17.lat closed.</span>');
+          setTimeout(closeTerminal, 800);
+          break;
+
+        case 'ls':
+          appendLine('<span class="text-[#a476ff]">projects/</span>  <span class="text-[#a476ff]">certs/</span>  <span class="text-[#33ff33]">README.md</span>  <span class="text-[#33ff33]">.secrets</span>  <span class="text-[#33ff33]">.env</span>');
+          appendLine('');
+          break;
+
+        case 'cat .secrets':
+          appendLine('<span class="text-[#ff6b6b]">Nice try. 🕵️</span>');
+          appendLine('<span class="text-[#33ff3360]">The secrets are encrypted with 256-bit AES.</span>');
+          appendLine('<span class="text-[#33ff3340]">Or maybe they\'re just memes. You\'ll never know.</span>');
+          appendLine('');
+          break;
+
+        case 'cat .env':
+          appendLine('<span class="text-[#33ff3380]">MOTIVATION=unlimited</span>');
+          appendLine('<span class="text-[#33ff3380]">COFFEE_LEVEL=critical</span>');
+          appendLine('<span class="text-[#33ff3380]">BUGS_FIXED=probably</span>');
+          appendLine('<span class="text-[#33ff3380]">SLEEP=null</span>');
+          appendLine('<span class="text-[#33ff3380]">SECRET_KEY=nice_try_lol</span>');
+          appendLine('');
+          break;
+
+        case 'cat readme.md':
+          appendLine('<span class="text-[#a476ff]"># 👋 Welcome to the Undisclosed Terminal</span>');
+          appendLine('');
+          appendLine('<span class="text-[#33ff33]">You\'ve discovered the hidden terminal.</span>');
+          appendLine('<span class="text-[#33ff33]">This means you\'re curious. That\'s a good trait.</span>');
+          appendLine('<span class="text-[#33ff33]">Curiosity is the engine of achievement.</span>');
+          appendLine('');
+          break;
+
+        default:
+          appendLine(`<span class="text-[#ff6b6b]">zsh: command not found: ${cmd}</span>`);
+          appendLine('<span class="text-[#33ff3360]">Type "help" for available commands.</span>');
+          appendLine('');
+          break;
+      }
+    }
+
+    // Click trigger to open
+    trigger.addEventListener('click', () => {
+      if (isOpen) {
+        closeTerminal();
+      } else {
+        openTerminal();
+      }
+    });
+
+    // Close button
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeTerminal();
+    });
+
+    // Command input
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const cmd = input.value;
+        input.value = '';
+        processCommand(cmd);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (commandHistory.length > 0 && historyIndex < commandHistory.length - 1) {
+          historyIndex++;
+          input.value = commandHistory[historyIndex];
+        }
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (historyIndex > 0) {
+          historyIndex--;
+          input.value = commandHistory[historyIndex];
+        } else {
+          historyIndex = -1;
+          input.value = '';
+        }
+      } else if (e.key === 'l' && e.ctrlKey) {
+        e.preventDefault();
+        output.innerHTML = '';
+      }
+    });
+
+    // Click anywhere on terminal to focus input
+    screen.addEventListener('click', () => {
+      input.focus();
+    });
+  }
+
+  setupEasterEgg();
+  document.addEventListener('astro:page-load', setupEasterEgg);
+</script>
