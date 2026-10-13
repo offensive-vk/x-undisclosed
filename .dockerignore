@@ -3,3 +3,5 @@ dist
 .astro
 .vercel
 .vscode
+package-lock.json
+build

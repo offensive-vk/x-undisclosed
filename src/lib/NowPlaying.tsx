@@ -15,7 +15,7 @@ const SPOTIFY_API_ENDPOINT = import.meta.env.PUBLIC_SPOTIFY_NOW_PLAYING_URL || '
 const DEFAULT_TRACK: NowPlayingData = {
   isPlaying: true,
   title: "Zemër",
-  artist: "Soolking, Dhurata Dora",
+  artist: "Soolking",
   albumImageUrl: "https://i.scdn.co/image/ab67616d0000b2732f44715c2610a093361f26ee",
   songUrl: "https://open.spotify.com/track/68av1mZz0VsIYXJWATZWUW?si=a012b67b7c164a69",
 };
