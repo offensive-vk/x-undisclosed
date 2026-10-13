@@ -85,6 +85,7 @@ x-undisclosed/
 │   │   └── Footer.astro         # Social links, tech stack badges, copyright
 │   │
 │   ├── lib/
+│   │   ├── CursorFX.tsx         # React: Cyber mouse effect (motion trail + stable radar/orbit)
 │   │   ├── LetterGlitch.tsx     # React: Canvas-based matrix glitch animation
 │   │   ├── SkillsList.tsx       # React: Accordion with remote SVG icons
 │   │   ├── HoloBadge.tsx        # React: Interactive 3D holographic badge
@@ -233,6 +234,12 @@ graph TD
 - **Local state**: `localStorage` tracks if user already liked
 - **Animations**: Scale animation on click/update
 
+### 15. CursorFX.tsx (React Island)
+- **Fluid Motion Trail**: Easing neon plasma trail ribbon + velocity-reactive spark particles with constellation inter-linking
+- **Stable Idle State**: Automatic sonar/radar ripple wave expansion + 3 harmonic orbiting micro-satellites with cometary trails + standby scanning reticle
+- **Tactile Click Feedback**: Instant radial shockwave ripple and spark burst
+- **Zero Cursor Modification**: Preserves native system cursor completely (`pointer-events: none`, no cursor overriding)
+
 ---
 
 ## 🏗️ Infrastructure & DevOps
@@ -323,6 +330,7 @@ graph TD
 - [x] **Now Playing Spotify Widget** with fallback to Zemër by Soolking & Dhurata Dora
 - [x] **Enhanced Contact Form UI** (Availability status, direct email copy, modern glassmorphic inputs & animations)
 - [x] **Add Twitter card & Theme-Color meta tags** in Layout.astro
+- [x] **CursorFX Cyber Motion & Stable Radar Effect** (Fluid neon trail ribbon, resting sonar pulse & orbital satellites without cursor override)
 - [ ] **Update LinkedIn URL** in Home.astro to point to actual profile
 - [ ] **Re-enable LikeButton** in Footer once Firebase env vars are configured
 - [ ] **Add project images** — the `Project` interface supports `image` but it's commented out

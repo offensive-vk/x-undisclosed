@@ -25,13 +25,13 @@ const navItems: NavItem[] = [
     label: "Contact",
     href: "#contact",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M21.7267 2.95694L16.2734 22.0432C16.1225 22.5716 15.7979 22.5956 15.5563 22.1126L11 13L1.9229 9.36919C1.41322 9.16532 1.41953 8.86022 1.95695 8.68108L21.0432 2.31901C21.5716 2.14285 21.8747 2.43866 21.7267 2.95694ZM19.0353 5.09647L6.81221 9.17085L12.4488 11.4255L15.4895 17.5068L19.0353 5.09647Z"></path></svg>`,
-  }
+  },
 ];
 ---
 
 <div class="flex justify-center w-full">
   <nav
-    class="fixed flex left-0 right-0 mx-auto z-[100] bg-[#141414c0] border border-1 border-[var(--white-icon-tr)] backdrop-blur-2xl transition-all lg:top-0 lg:bottom-auto bottom-0 lg:w-[33rem] rounded-t-3xl lg:rounded-full lg:mt-6 pb-[env(safe-area-inset-bottom)] lg:pb-0 shadow-[0_-4px_24px_-8px_rgba(0,0,0,0.5)] lg:shadow-none"
+    class="fixed flex left-0 right-0 mx-auto z-[100] bg-[#141414c0] border border-1 border-[var(--white-icon-tr)] backdrop-blur-2xl transition-all lg:top-0 lg:bottom-auto bottom-0 lg:w-[33rem] rounded-t-[14px] lg:rounded-[14px] lg:mt-6 pb-[env(safe-area-inset-bottom)] lg:pb-0 shadow-[0_-4px_24px_-8px_rgba(0,0,0,0.5)] lg:shadow-none"
   >
     <div class="container mx-auto flex justify-center items-center p-4 lg:p-3">
       <ul
@@ -93,7 +93,7 @@ const navItems: NavItem[] = [
 
     const observer = new IntersectionObserver(
       observerCallback,
-      observerOptions
+      observerOptions,
     );
     sections.forEach((section) => observer.observe(section));
   });

@@ -1,4 +1,6 @@
 ---
+import CursorFX from "@/lib/CursorFX.tsx";
+
 interface Props {
   title: string;
 }
@@ -40,6 +42,7 @@ const { title } = Astro.props;
   </head>
   <body class="bg-[--background] px-5 sm:px-8 md:px-12 lg:px-20">
     <div class="top-gradient-line"></div>
+    <CursorFX client:load />
     <slot />
   </body>
 </html>

@@ -116,3 +116,26 @@ import LetterGlitch from "../lib/LetterGlitch.tsx";
   />
 </div>
 ```
+
+---
+
+## 6. ✨ CursorFX (`CursorFX.tsx`)
+A high-performance, non-intrusive cyber cursor aura that responds dynamically to both mouse movement and idle/stable events without altering the native cursor.
+
+**Features:**
+- **Native Cursor Untouched**: Zero modification to default mouse pointer appearance (`pointer-events: none`).
+- **Moving Events**: Easing neon plasma trail, velocity-reactive spark bursts, dynamic constellation links between nearby particles, and ambient flashlight spotlight.
+- **Stable Events**: When stationary, automatically activates concentric sonar/radar ping waves, 3 harmonic orbiting micro-satellites with micro-trails, and a subtle rotating standby crosshair reticle.
+- **Click Feedback**: Crisp radial shockwave ripple and spark burst on click.
+- **Accessibility & Performance**: Automatic fallback for reduced motion, smooth delta-time physics, high-DPI scaling, and screen blend mode.
+
+**How to integrate:**
+```astro
+---
+import CursorFX from "@/lib/CursorFX.tsx";
+---
+
+<!-- Placed in Layout.astro for sitewide effect -->
+<CursorFX client:load />
+```
+
