@@ -16,27 +16,28 @@ const projects: Project[] = [
     link: "https://github.com/offensive-vk/reactjs-quiz-app",
     preview: "https://quizzly.pages.dev",
     status: "Completed",
-    role: "Lead Developer"
+    role: "Lead Developer",
   },
   {
     title: "Cloudflare R2 Client",
     link: "https://github.com/offensive-vk/tiny-r2-client",
     preview: "https://r2-client.pages.dev/",
     status: "Completed",
-    role: "Author"
+    role: "Author",
   },
   {
     title: "Temp - Movies and Web Series Explorer",
     link: "https://github.com/offensive-vk/Temp",
     preview: "https://find-everything.pages.dev/",
     status: "Completed",
-    role: "Author"
+    role: "Author",
   },
   {
-    title: "Github User Activity",
-    link: "https://github.com/offensive-vk/auto-user-activity",
+    title: "Tech SVG Icons for Developers",
+    link: "https://github.com/offensive-vk/Icons",
+    preview: "https://www.jsdelivr.com/package/gh/offensive-vk/Icons",
     status: "Completed",
-    role: "Author"
+    role: "Author",
   },
 ];
 ---
@@ -61,7 +62,7 @@ const projects: Project[] = [
               aria-label={`View ${project.title}`}
             >
               {/* <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 mb-4"> */}
-                {/* <Image
+              {/* <Image
                   src={project.image}
                   alt={project.title}
                   class="w-full h-48 md:h-72 object-cover group-hover:scale-105 transition-transform duration-300"
@@ -92,22 +93,22 @@ const projects: Project[] = [
                     </svg>
                   </a>
                   {project.preview && (
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={project.preview}
-                    aria-label="Preview"
-                    class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      class="size-7"
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={project.preview}
+                      aria-label="Preview"
+                      class="size-14 flex justify-center items-center text-[var(--white-icon)] hover:text-white transition duration-300 ease-in-out border border-1 border-[var(--white-icon-tr)] p-3 rounded-xl bg-[#1414149c] hover:bg-[var(--white-icon-tr)]"
                     >
-                      <path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z" />
-                    </svg>
-                  </a>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="size-7"
+                      >
+                        <path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z" />
+                      </svg>
+                    </a>
                   )}
                 </div>
               </div>

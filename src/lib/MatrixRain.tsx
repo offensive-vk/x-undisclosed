@@ -34,12 +34,9 @@ export default function MatrixRain({
     let canvasW = 0;
     let canvasH = 0;
 
-    const setupCanvas = () => {
-      const rect = canvas.getBoundingClientRect();
-      const width = rect.width || canvas.clientWidth || (canvas.parentElement?.clientWidth ?? window.innerWidth);
-      const height = rect.height || canvas.clientHeight || (canvas.parentElement?.clientHeight ?? window.innerHeight);
-
-      if (width === 0 || height === 0) return;
+    const updateDimensions = (width: number, height: number) => {
+      if (width <= 0 || height <= 0) return;
+      if (width === canvasW && height === canvasH) return;
 
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(width * dpr);
@@ -62,7 +59,6 @@ export default function MatrixRain({
 
         columns.push({
           x: i * fontSize,
-          // Distribute initially across screen height so it is immediately visible
           y: Math.random() * height,
           speed: Math.random() * 1.8 + 1.2,
           length,
@@ -71,7 +67,19 @@ export default function MatrixRain({
       }
     };
 
-    setupCanvas();
+    // Use ResizeObserver directly to avoid layout thrashing and forced reflow
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect;
+        if (width > 0 && height > 0) {
+          updateDimensions(Math.round(width), Math.round(height));
+        }
+      }
+    });
+
+    if (canvas.parentElement) {
+      resizeObserver.observe(canvas.parentElement);
+    }
 
     let lastTime = 0;
     const fps = 30;
@@ -84,8 +92,8 @@ export default function MatrixRain({
       if (delta < interval) return;
       lastTime = time - (delta % interval);
 
+      // Never query DOM or force reflow in render loop; wait for ResizeObserver
       if (canvasW === 0 || canvasH === 0) {
-        setupCanvas();
         return;
       }
 
@@ -149,23 +157,8 @@ export default function MatrixRain({
 
     animationFrameId = requestAnimationFrame(render);
 
-    const handleResize = () => {
-      setupCanvas();
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    const resizeObserver = new ResizeObserver(() => {
-      setupCanvas();
-    });
-
-    if (canvas.parentElement) {
-      resizeObserver.observe(canvas.parentElement);
-    }
-
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', handleResize);
       resizeObserver.disconnect();
     };
   }, [color, transparent]);

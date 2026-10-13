@@ -1,0 +1,38 @@
+{
+  "$schema": "https://agenticresourcediscovery.org/schemas/v1.0/ai-catalog.schema.json",
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Vedansh Portfolio",
+    "identifier": "did:web:website.ns17.lat",
+    "documentationUrl": "https://website.ns17.lat/llms.txt",
+    "logoUrl": "https://website.ns17.lat/logo-color.svg"
+  },
+  "entries": [
+    {
+      "identifier": "urn:ai:website.ns17.lat:portfolio:profile",
+      "displayName": "Vedansh - Information Security Portfolio",
+      "type": "text/markdown",
+      "url": "https://website.ns17.lat/llms.txt",
+      "description": "Personal portfolio of Vedansh, an Information Security Engineer specializing in cloud strategies, Linux operations, and modern architecture.",
+      "representativeQueries": [
+        "who is Vedansh?",
+        "view Vedansh's security engineering portfolio",
+        "find information security projects and certifications",
+        "contact Vedansh for security engineering opportunities"
+      ],
+      "capabilities": [
+        "ReadProfile",
+        "ViewProjects",
+        "ViewCertifications",
+        "ContactInfo"
+      ],
+      "tags": [
+        "infosec",
+        "cybersecurity",
+        "linux",
+        "cloud",
+        "portfolio"
+      ]
+    }
+  ]
+}

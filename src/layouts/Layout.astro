@@ -37,12 +37,28 @@ const { title } = Astro.props;
     <link rel="shortcut icon" type="image/x-icon" href="/logo-black.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
+      />
+    </noscript>
     <title>{title}</title>
   </head>
   <body class="bg-[--background] px-5 sm:px-8 md:px-12 lg:px-20">
     <div class="top-gradient-line"></div>
-    <CursorFX client:load />
+    <CursorFX client:media="(min-width: 1024px)" />
     <slot />
   </body>
 </html>

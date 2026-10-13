@@ -47,6 +47,11 @@ export default function CursorFX({
       return;
     }
 
+    // Completely disable on mobile / touch-only devices
+    if (window.matchMedia('(pointer: coarse)').matches || !window.matchMedia('(hover: hover)').matches) {
+      return;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 

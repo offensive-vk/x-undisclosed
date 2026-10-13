@@ -1,44 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const SkillsList = () => {
   const [openItem, setOpenItem] = useState<string | null>(null);
-  const [categoryIcons, setCategoryIcons] = useState<{ [key: string]: string }>({});
-  const [loadingIcons, setLoadingIcons] = useState(true);
-  const [errorIcons, setErrorIcons] = useState<string | null>(null);
 
   const remoteIconUrls: { [key: string]: string } = {
     "System Administration": "https://cdn.jsdelivr.net/gh/offensive-vk/Icons@master/linux/linux-original.svg",
     "Github Actions": "https://cdn.jsdelivr.net/gh/offensive-vk/Icons@master/githubactions/githubactions-original.svg",
     "Containerization": "https://cdn.jsdelivr.net/gh/offensive-vk/Icons@master/docker/docker-original.svg",
   };
-
-  useEffect(() => {
-    const fetchIcons = async () => {
-      setLoadingIcons(true);
-      setErrorIcons(null);
-      const fetchedIcons: { [key: string]: string } = {};
-      const fetchPromises = Object.entries(remoteIconUrls).map(async ([category, url]) => {
-        try {
-          const response = await fetch(url);
-          if (!response.ok) {
-            throw new Error(`Failed to fetch ${category} icon: ${response.statusText}`);
-          }
-          const svgText = await response.text();
-          fetchedIcons[category] = svgText;
-        } catch (error) {
-          console.error(error);
-          setErrorIcons(`Failed to load some icons.`);
-          fetchedIcons[category] = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-red-500 opacity-70"><path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"></path></svg>`;
-        }
-      });
-
-      await Promise.all(fetchPromises);
-      setCategoryIcons(fetchedIcons);
-      setLoadingIcons(false);
-    };
-
-    fetchIcons();
-  }, []);
 
   const skills = {
     "System Administration": [
@@ -59,8 +28,6 @@ const SkillsList = () => {
     setOpenItem(openItem === item ? null : item);
   };
 
-
-
   return (
     <div className="text-left pt-3 md:pt-9">
       <h2 className="text-[var(--white)] text-3xl md:text-4xl font-semibold md:mb-6">
@@ -74,13 +41,13 @@ const SkillsList = () => {
               className="md:w-[400px] w-full bg-[#1414149c] rounded-2xl text-left hover:bg-opacity-80 transition-all border border-[var(--white-icon-tr)] cursor-pointer overflow-hidden"
             >
               <div className="flex items-center gap-3 p-4">
-                {/* Dynamically render the SVG string */}
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: categoryIcons[category]
-                      ? categoryIcons[category].replace(/<svg/, `<svg class="w-6 h-6 text-[var(--sec)] opacity-70"`)
-                      : '<div class="w-6 h-6 rounded-full bg-[#111] animate-pulse border border-[#333]"></div>'
-                  }}
+                <img
+                  src={remoteIconUrls[category]}
+                  alt={`${category} icon`}
+                  width="24"
+                  height="24"
+                  loading="lazy"
+                  className="w-6 h-6 object-contain opacity-80 flex-shrink-0"
                 />
                 <div className="flex items-center gap-2 flex-grow justify-between">
                   <div className="min-w-0 max-w-[200px] md:max-w-none overflow-hidden">

@@ -303,6 +303,7 @@ graph TD
 |------|---------|
 | `public/.well-known/security.txt` | RFC 9116 security disclosure policy |
 | `public/llms.txt` | LLM-readable site description |
+| `public/ai-catalog.json` | ARD (Agentic Resource Discovery) 1.0 manifest |
 | `public/_headers` | Cloudflare Pages security headers & cache policies |
 | `.env.example` | Environment variable template |
 | `public/robots.txt` | Enhanced with AI crawler blocking |
