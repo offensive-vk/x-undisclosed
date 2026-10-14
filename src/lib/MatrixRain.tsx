@@ -34,9 +34,14 @@ export default function MatrixRain({
     let canvasW = 0;
     let canvasH = 0;
 
+    const container =
+      (canvas.closest('.relative') as HTMLElement) ||
+      canvas.parentElement?.parentElement ||
+      canvas;
+
     const updateDimensions = (width: number, height: number) => {
       if (width <= 0 || height <= 0) return;
-      if (width === canvasW && height === canvasH) return;
+      if (width === canvasW && height === canvasH && columns.length > 0) return;
 
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(width * dpr);
@@ -59,6 +64,7 @@ export default function MatrixRain({
 
         columns.push({
           x: i * fontSize,
+          // Distribute characters across vertical height so rain is immediately visible
           y: Math.random() * height,
           speed: Math.random() * 1.8 + 1.2,
           length,
@@ -67,19 +73,43 @@ export default function MatrixRain({
       }
     };
 
-    // Use ResizeObserver directly to avoid layout thrashing and forced reflow
+    const getDimensions = (): { w: number; h: number } => {
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.round(rect.width || canvas.clientWidth || (container?.clientWidth ?? 0) || window.innerWidth);
+      const h = Math.round(rect.height || canvas.clientHeight || (container?.clientHeight ?? 0) || 450);
+      return { w, h };
+    };
+
+    // Initialize dimensions immediately
+    const initial = getDimensions();
+    if (initial.w > 0 && initial.h > 0) {
+      updateDimensions(initial.w, initial.h);
+    }
+
+    // Observe both canvas and relative container
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
-        const { width, height } = entry.contentRect;
-        if (width > 0 && height > 0) {
-          updateDimensions(Math.round(width), Math.round(height));
+        const cr = entry.contentRect;
+        const w = Math.round(cr.width || (entry.target as HTMLElement).clientWidth);
+        const h = Math.round(cr.height || (entry.target as HTMLElement).clientHeight);
+        if (w > 0 && h > 0) {
+          updateDimensions(w, h);
         }
       }
     });
 
-    if (canvas.parentElement) {
-      resizeObserver.observe(canvas.parentElement);
+    resizeObserver.observe(canvas);
+    if (container && container !== canvas) {
+      resizeObserver.observe(container);
     }
+
+    const onResize = () => {
+      const { w, h } = getDimensions();
+      if (w > 0 && h > 0) {
+        updateDimensions(w, h);
+      }
+    };
+    window.addEventListener('resize', onResize);
 
     let lastTime = 0;
     const fps = 30;
@@ -92,9 +122,13 @@ export default function MatrixRain({
       if (delta < interval) return;
       lastTime = time - (delta % interval);
 
-      // Never query DOM or force reflow in render loop; wait for ResizeObserver
       if (canvasW === 0 || canvasH === 0) {
-        return;
+        const { w, h } = getDimensions();
+        if (w > 0 && h > 0) {
+          updateDimensions(w, h);
+        } else {
+          return;
+        }
       }
 
       // Clear the canvas cleanly
@@ -160,6 +194,7 @@ export default function MatrixRain({
     return () => {
       cancelAnimationFrame(animationFrameId);
       resizeObserver.disconnect();
+      window.removeEventListener('resize', onResize);
     };
   }, [color, transparent]);
 

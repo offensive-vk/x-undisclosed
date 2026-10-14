@@ -60,7 +60,7 @@ x-undisclosed/
 │   │   ├── Carattere.ttf        # Decorative font
 │   │   ├── Kaisei Decol.ttf     # Japanese-inspired font (4.2MB)
 │   │   └── SF-Pro-Display-Regular.otf  # Apple system font (2.2MB)
-│   ├── icons/                   # Reserved for future icon assets
+│   ├── icons/                   # 14 tech SVG icons (local, immutable 1yr cache)
 │   └── media/
 │       ├── old-icon.png         # Legacy icon
 │       └── spotted.jpg          # Image asset

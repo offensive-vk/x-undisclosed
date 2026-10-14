@@ -1,5 +1,4 @@
 {
-  "$schema": "https://agenticresourcediscovery.org/schemas/v1.0/ai-catalog.schema.json",
   "specVersion": "1.0",
   "host": {
     "displayName": "Vedansh Portfolio",
@@ -9,9 +8,9 @@
   },
   "entries": [
     {
-      "identifier": "urn:ai:website.ns17.lat:portfolio:profile",
+      "identifier": "urn:air:website.ns17.lat:portfolio:profile",
       "displayName": "Vedansh - Information Security Portfolio",
-      "type": "text/markdown",
+      "type": "text/markdown; profile=\"urn:air:agent-skills\"",
       "url": "https://website.ns17.lat/llms.txt",
       "description": "Personal portfolio of Vedansh, an Information Security Engineer specializing in cloud strategies, Linux operations, and modern architecture.",
       "representativeQueries": [

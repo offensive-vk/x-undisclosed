@@ -4,9 +4,9 @@ const SkillsList = () => {
   const [openItem, setOpenItem] = useState<string | null>(null);
 
   const remoteIconUrls: { [key: string]: string } = {
-    "System Administration": "https://cdn.jsdelivr.net/gh/offensive-vk/Icons@master/linux/linux-original.svg",
-    "Github Actions": "https://cdn.jsdelivr.net/gh/offensive-vk/Icons@master/githubactions/githubactions-original.svg",
-    "Containerization": "https://cdn.jsdelivr.net/gh/offensive-vk/Icons@master/docker/docker-original.svg",
+    "System Administration": "/icons/linux.svg",
+    "Github Actions": "/icons/githubactions.svg",
+    "Containerization": "/icons/docker.svg",
   };
 
   const skills = {
